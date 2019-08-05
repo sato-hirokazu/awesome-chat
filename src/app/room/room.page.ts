@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NavController } from '@ionic/angular';
-import * as firebase from 'firebase';
+import { AuthService } from '../service/auth.service';
 
 @Component({
   selector: 'app-room',
@@ -9,10 +9,26 @@ import * as firebase from 'firebase';
 })
 export class RoomPage implements OnInit {
 
-  constructor(public navControl:NavController) { }
+  constructor(public navControl:NavController,
+    public authService:AuthService) { }
 
   ngOnInit() {
     // firebase.auth().onAuthStateChanged()
+  }
+
+  async signOut(){
+    try{
+      await this.authService.signOut();
+      this.navControl.navigateRoot('signin');
+
+    } catch (error) {
+      // const alert = await this.alertController.create({
+      //   header: '警告',
+      //   message: error.message,
+      //   buttons: ['OK']
+      // });
+      // alert.present();
+    }
   }
 
 }
