@@ -4,6 +4,34 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
 
+<ion-content padding>
+  <form>
+    <ion-list>
+      <!-- <ion-item>
+        <ion-label position="floating">Enter your E-mail</ion-label>
+        <ion-input type="text" [(ngModel)]="data.email" name="email" required></ion-input>
+      </ion-item> -->
+      <ion-item>
+        <ion-label position="floating">性別</ion-label>
+        <ion-input type="text" [(ngModel)]="data.sex" name="sex" required></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">誕生日</ion-label>
+        <ion-input type="text" [(ngModel)]="data.birthday" name="birthday" required></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">電話番号</ion-label>
+        <ion-input type="text" [(ngModel)]="data.tel" name="tel" required></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">ひとこと</ion-label>
+        <ion-input type="text" [(ngModel)]="data.message" name="message" required></ion-input>
+      </ion-item>
+    </ion-list>
+    <p>
+      <ion-button expand="block" color="primary" type="button" (click)="addAccount()">編集</ion-button>
+    </p>
+
+  </form>
 </ion-content>

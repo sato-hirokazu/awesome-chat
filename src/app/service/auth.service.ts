@@ -11,11 +11,20 @@ export class AuthService {
     private afAuth: AngularFireAuth, 
     private navCtrl: NavController) {
   }
-  signIn(email: string, password: string){
-    return this.afAuth.auth.signInWithEmailAndPassword(email,password).then(userInfo =>{
-  })}
+  signIn(email: string, password: string):Promise<firebase.auth.UserCredential>{
+    return this.afAuth.auth.signInWithEmailAndPassword(email,password);
+  }
+  
   signOut(){
     return this.afAuth.auth.signOut();
   }
+
+  onAuthStateChanged(user) {
+    return this.afAuth.auth.onAuthStateChanged(function(user) {
+
+    })
+  }
+
+
 }
 

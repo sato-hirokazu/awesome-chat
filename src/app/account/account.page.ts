@@ -7,9 +7,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AccountPage implements OnInit {
 
+  data:{sex:string, birthday:string, tel:string, message:string } = { sex: '', birthday: '',tel: '',message: '' };
   constructor() { }
 
   ngOnInit() {
+    
   }
-
 }
