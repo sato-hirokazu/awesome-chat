@@ -1,5 +1,6 @@
 
 export interface User {
+  uid?:string,
   birthday?: string;
   email?: string;
   image?: string;

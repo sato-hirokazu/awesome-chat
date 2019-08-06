@@ -8,10 +8,14 @@
 <ion-content padding>
   <form>
     <ion-list>
-      <!-- <ion-item>
-        <ion-label position="floating">Enter your E-mail</ion-label>
+      <ion-item>
+          <ion-label position="floating">ユーザ名</ion-label>
+          <ion-input type="text" [(ngModel)]="data.namme" name="namme" required></ion-input>
+        </ion-item>
+      <ion-item>
+        <ion-label position="floating">e-mail</ion-label>
         <ion-input type="text" [(ngModel)]="data.email" name="email" required></ion-input>
-      </ion-item> -->
+      </ion-item>
       <ion-item>
         <ion-label position="floating">性別</ion-label>
         <ion-input type="text" [(ngModel)]="data.sex" name="sex" required></ion-input>
@@ -26,11 +30,11 @@
       </ion-item>
       <ion-item>
         <ion-label position="floating">ひとこと</ion-label>
-        <ion-input type="text" [(ngModel)]="data.message" name="message" required></ion-input>
+        <ion-input type="text" [(ngModel)]="data.message" name="message"></ion-input>
       </ion-item>
     </ion-list>
     <p>
-      <ion-button expand="block" color="primary" type="button" (click)="addAccount()">編集</ion-button>
+      <ion-button expand="block" color="primary" type="button" (click)="addAccount()">確定</ion-button>
     </p>
 
   </form>
