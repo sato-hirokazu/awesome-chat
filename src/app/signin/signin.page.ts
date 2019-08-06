@@ -16,7 +16,6 @@ export class SigninPage implements OnInit {
   constructor(
     // @Inject(NavParams)
     public navCtrl:NavController,
-
     public alertController:AlertController,
     public authService:AuthService,
     public usersService:UsersService,
@@ -36,9 +35,7 @@ export class SigninPage implements OnInit {
           this.usersService.setUserProfile(user);
           const alert = await this.alertController.create({
             header: '警告',
-            // message: error.message,
-            message: "1初回ログインのため、アカウント画面に遷移します",
-            // buttons: ['OK']
+            message: "初回ログインのため、アカウント画面に遷移します",
             buttons:[{
               text: 'OK',
               handler: () => {
