@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NavController } from '@ionic/angular';
 import { AuthService } from '../service/auth.service';
-
+import { RoomsService } from '../service/rooms.service';
 
 @Component({
   selector: 'app-room',
@@ -10,28 +10,19 @@ import { AuthService } from '../service/auth.service';
 })
 export class RoomPage implements OnInit {
 
-
   rooms = [];
-  constructor(public navControl:NavController,
-    public authService:AuthService) { }
+  constructor(
+    public navControl:NavController,
+    public authService:AuthService,
+    public roomsService:RoomsService,
+    ) {}
 
   ngOnInit() {
-    this.authService.onAuthStateChanged((user) =>{
-      if (user) {
-      //   authService.database().ref('chatrooms/').on('value', resp => {
-      //     if (resp) {
-      //       this.rooms = [];
-      //       resp.forEach(childSnapshot => {
-      //         const room = childSnapshot.val();
-      //         room.key = childSnapshot.key;
-      //         this.rooms.push(room);
-      //       });
-      //     }
-      //   });
-      // } else {
-      //   this.navCtrl.goRoot('signin');
-      // }
-    }});
+    this.roomsService.readAllRooms().subscribe((rooms)=>{
+      rooms.forEach((room) => {
+        this.rooms.push(room);
+      });
+    },);
   }
 
   async signOut(){
@@ -40,12 +31,6 @@ export class RoomPage implements OnInit {
       this.navControl.navigateRoot('signin');
 
     } catch (error) {
-      // const alert = await this.alertController.create({
-      //   header: '警告',
-      //   message: error.message,
-      //   buttons: ['OK']
-      // });
-      // alert.present();
     }
   }
 

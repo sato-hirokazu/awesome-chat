@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { UsersService } from '../service/users.service';
 import { User } from '../shared/user';
 import { NavController } from '@ionic/angular';
-import { connectableObservableDescriptor } from 'rxjs/internal/observable/ConnectableObservable';
 import { AuthService } from '../service/auth.service';
 
 
