@@ -12,7 +12,7 @@ import { AuthService } from '../service/auth.service';
 })
 export class AccountPage implements OnInit {
   value:any;
-  data:User = this.usersService.getUserProfile();
+  data:User;
   
   constructor(
     public usersService:UsersService,
@@ -21,18 +21,17 @@ export class AccountPage implements OnInit {
   ) {}
 
   ngOnInit() {
-    
+    this.data = this.usersService.getUserProfile();
   }
 
   addAccount(){
     try {
       // await 
-      let userProfile: User = this.usersService.getUserProfile();
       if(!this.data.name){
         return this.navCtrl.navigateForward('account');
       }
 
-      this.usersService.updateUser(userProfile);
+      this.usersService.updateUser(this.data);
       this.navCtrl.navigateRoot('room');
     } catch (error) {
       // なにかしらの処理
