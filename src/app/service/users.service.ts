@@ -14,28 +14,24 @@ import { Observable } from 'rxjs';
 export class UsersService {
 
   userProfile: User;
-  user: Observable<User>;
-  users: Observable<User[]>;
 
   constructor(
     private afs: AngularFirestore,
   ) { }
 
   readUser(uid:string) {
-    return this.afs.collection('users').doc(uid).valueChanges()
+    return this.afs.collection('users').doc(uid).valueChanges();
   }
 
   updateUser(user:User) {
-    return this.afs.collection('users').doc(user.uid).update(user);
+    this.afs.collection('users').doc(user.uid).update(user);
   }
-
 
   setUserProfile(userProfile:User){
     this.userProfile = userProfile;
   }
 
   getUserProfile(){
-    console.log(this.userProfile);
     if(this.userProfile){
       return this.userProfile;
     }

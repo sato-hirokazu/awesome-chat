@@ -10,6 +10,7 @@ const routes: Routes = [
   { path: 'room', loadChildren: './room/room.module#RoomPageModule' },
   { path: 'account', loadChildren: './account/account.module#AccountPageModule' },
   { path: 'signup', loadChildren: './signup/signup.module#SignupPageModule' },
+  { path: 'chat', loadChildren: './chat/chat.module#ChatPageModule' },
 ];
 
 @NgModule({

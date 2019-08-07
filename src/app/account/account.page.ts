@@ -3,6 +3,7 @@ import { UsersService } from '../service/users.service';
 import { User } from '../shared/user';
 import { NavController } from '@ionic/angular';
 import { AuthService } from '../service/auth.service';
+import { connectableObservableDescriptor } from 'rxjs/internal/observable/ConnectableObservable';
 
 
 @Component({

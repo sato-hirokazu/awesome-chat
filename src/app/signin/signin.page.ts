@@ -28,7 +28,8 @@ export class SigninPage implements OnInit {
       const user = await this.authService.signIn(this.data.email, this.data.password);
       const uid = user.user.uid;
       
-      this.usersService.readUser(uid).subscribe(async (user:User)=>{
+      this.usersService.readUser(uid)
+      .subscribe(async (user:User)=>{
         if (user && user.name) {
           this.navCtrl.navigateRoot('room');
         } else {

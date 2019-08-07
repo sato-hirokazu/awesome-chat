@@ -18,7 +18,8 @@ export class RoomPage implements OnInit {
     ) {}
 
   ngOnInit() {
-    this.roomsService.readAllRooms().subscribe((rooms)=>{
+    this.roomsService.readAllRooms()
+    .subscribe((rooms)=>{
       rooms.forEach((room) => {
         this.rooms.push(room);
       });
@@ -29,7 +30,6 @@ export class RoomPage implements OnInit {
     try{
       await this.authService.signOut();
       this.navControl.navigateRoot('signin');
-
     } catch (error) {
     }
   }
