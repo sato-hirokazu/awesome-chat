@@ -39,7 +39,6 @@ export class ChatPage implements OnInit {
     .subscribe((message)=>{   
       this.chats = [];
       message.forEach((msg) => {
-        console.log(msg);
         this.chats.push(msg);
       });
     },);
