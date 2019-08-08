@@ -34,8 +34,10 @@
           <ion-input type="text" [(ngModel)]="data.name" name="name" required></ion-input>
         </ion-item>
       <ion-item>
-        <ion-label position="floating">e-mail</ion-label>
-        <ion-input type="text" [(ngModel)]="data.email" name="email" required></ion-input>
+          <ion-label text-wrap>
+              <p>e-mail</p>
+              <p>{{data.email}}</p>
+          </ion-label>
       </ion-item>
       <ion-item>
         <ion-label position="floating">性別</ion-label>
