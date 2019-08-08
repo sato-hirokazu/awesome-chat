@@ -2,6 +2,8 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NavController, IonContent } from '@ionic/angular';
 import { ChatService } from '../service/chats.service';
+import { Chat } from '../shared/chat';
+import { ReturnStatement } from '@angular/compiler';
 
 @Component({
   selector: 'app-chat',
@@ -17,6 +19,7 @@ export class ChatPage implements OnInit {
   chats = [];
   offStatus = false;
   @ViewChild(IonContent, {static: false}) content: IonContent;
+  chatLineScroll: any;
 
   constructor(
     public navCtrl: NavController, 
@@ -35,45 +38,33 @@ export class ChatPage implements OnInit {
   
   displayChatMessage() {
 
+    console.log("msg");
     this.chats = [];
     this.chatsService.readChat(this.roomkey)
     .subscribe((message)=>{   
       message.forEach((msg) => {
+        console.log(msg);
         this.chats.push(msg);
       });
     },);
-  
-      //   if (resp) {
-      //     this.chats = [];
-      //     resp.forEach(childSnapshot => {
-      //       const chat = childSnapshot.val();
-      //       chat.key = childSnapshot.key;
-      //       this.chats.push(chat);
-      //     });
-      //     setTimeout(async () => {
-      //       if (this.offStatus === false) {
-      //         // FIX-ME
-      //         // V4でコンテンツエリアをスクロールする方法が分からない
-      //         const el = await this.content.getScrollElement();
-      //         el.scrollToBottom(300);
-      //       }
-      //     });
-      //   }
-      // });
+  }
+
+  sendChatMessage() {
+    this.sendMessage('message', this.chatMessage);
+    this.chatMessage = "";
+  }
+
+  sendMessage(type: string, message: string) {
+
+    const chat: Chat = {
+      message: message,
+      user: this.nickname,
+      sendDate:new Date()
+    };
+    this.chatsService.createChat(this.roomkey, chat);
   }
 
   // sendJoinMessage() {
   //   this.sendMessage('join', this.nickname + ' has joined this room.');
   // }
-
-  // sendMessage(type: string, message: string) {
-  //   const newData = firebase.database().ref('rooms/' + this.roomkey + '/chats').push();
-  //   // newData.set({
-  //   //   type: type,
-  //   //   user: this.nickname,
-  //   //   message: message,
-  //   //   sendDate: Date()
-  //   // });
-  // }
-
 }

@@ -16,4 +16,8 @@ export class ChatService {
               .collection('chats').valueChanges({idField: 'key'});
     return messageRef;
   }
+
+  createChat(roomkey:string, chat) {
+    this.afs.collection('rooms').doc(roomkey).collection('chats').add(chat);
+  }
 }
