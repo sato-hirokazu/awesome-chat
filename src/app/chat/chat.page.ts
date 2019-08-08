@@ -37,11 +37,9 @@ export class ChatPage implements OnInit {
   }
   
   displayChatMessage() {
-
-    console.log("msg");
-    this.chats = [];
     this.chatsService.readChat(this.roomkey)
     .subscribe((message)=>{   
+      this.chats = [];
       message.forEach((msg) => {
         console.log(msg);
         this.chats.push(msg);

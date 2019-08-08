@@ -13,7 +13,8 @@ export class ChatService {
 
   readChat(roomkey:string) {
     const messageRef = this.afs.collection('rooms').doc(roomkey)
-              .collection('chats').valueChanges({idField: 'key'});
+              .collection('chats', ref => ref.orderBy('sendDate',"asc"))
+              .valueChanges();
     return messageRef;
   }
 
