@@ -3,7 +3,6 @@ import { ActivatedRoute } from '@angular/router';
 import { NavController, IonContent } from '@ionic/angular';
 import { ChatService } from '../service/chats.service';
 import { Chat } from '../shared/chat';
-import { ReturnStatement } from '@angular/compiler';
 
 @Component({
   selector: 'app-chat',
@@ -27,9 +26,8 @@ export class ChatPage implements OnInit {
     public chatsService:ChatService,
   ) {
     this.roomkey = this.route.snapshot.paramMap.get('key') as string;
-    // とりあえず下手書き
+    // とりあえずベタ書き
     this.nickname = "sakiko";
-    // this.sendJoinMessage();
     this.displayChatMessage();
    }
 
@@ -61,8 +59,4 @@ export class ChatPage implements OnInit {
     };
     this.chatsService.createChat(this.roomkey, chat);
   }
-
-  // sendJoinMessage() {
-  //   this.sendMessage('join', this.nickname + ' has joined this room.');
-  // }
 }
