@@ -41,12 +41,15 @@
           </ion-label>
       </ion-item>
       <ion-item>
-        <ion-label position="floating">性別</ion-label>
-        <ion-input type="text" [(ngModel)]="data.sex" name="sex" required></ion-input>
+          <ion-label position="floating">性別</ion-label>
+          <ion-select [(ngModel)]="data.sex" name="sex" required>
+            <ion-select-option value="f">Female</ion-select-option>
+            <ion-select-option value="m">Male</ion-select-option>
+          </ion-select>
       </ion-item>
       <ion-item>
         <ion-label position="floating">誕生日</ion-label>
-        <ion-input type="text" [(ngModel)]="data.birthday" name="birthday" required></ion-input>
+          <ion-datetime type="text" [(ngModel)]="data.birthday" value="data.birthday" name="birthday" required></ion-datetime>
       </ion-item>
       <ion-item>
         <ion-label position="floating">電話番号</ion-label>
