@@ -4,6 +4,7 @@ import { User } from '../shared/user';
 import { NavController } from '@ionic/angular';
 import { AuthService } from '../service/auth.service';
 import { connectableObservableDescriptor } from 'rxjs/internal/observable/ConnectableObservable';
+import {  FormControl, FormBuilder,FormGroup, Validators } from '@angular/forms';
 
 
 @Component({
@@ -14,28 +15,39 @@ import { connectableObservableDescriptor } from 'rxjs/internal/observable/Connec
 export class AccountPage implements OnInit {
   value:any;
   data:User;
+  validations_form: FormGroup;
   
   constructor(
     public usersService:UsersService,
     public navCtrl:NavController,
     public authService:AuthService,
+    public formBuilder: FormBuilder
   ) {}
 
   ngOnInit() {
     this.data = this.usersService.getUserProfile();
+    this.validations_form = this.formBuilder.group({     
+      birthday: new FormControl(this.data.birthday, Validators.required),
+      email: new FormControl(this.data.email, Validators.required),
+      image: new FormControl(this.data.image, Validators.required),
+      message: new FormControl(this.data.message, Validators.maxLength(15)),
+      name: new FormControl(this.data.name, Validators.required),
+      sex: new FormControl(this.data.sex, Validators.required),
+      tel: new FormControl(this.data.tel, [Validators.required, Validators.pattern("[0-9]*")])
+    });
   }
 
   addAccount(){
-    try {
+    try {      
       // await 
-      if(!this.data.name){
+      if(!this.validations_form.value.name){
         return this.navCtrl.navigateForward('account');
       }
 
-      this.usersService.updateUser(this.data);
+      this.usersService.updateUser(this.validations_form.value);
       this.navCtrl.navigateRoot('room');
     } catch (error) {
-      // なにかしらの処理
+      console.log("ERROR");
     }
   }
 

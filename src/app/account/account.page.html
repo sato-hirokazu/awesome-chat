@@ -27,13 +27,22 @@
 </ion-header>
 
 <ion-content main padding>
-  <form>
+    <form [formGroup]="validations_form">
     <ion-list>
-      <ion-img [src]="data.image"></ion-img>
+      <ion-img [src]="data.image"></ion-img> 
       <ion-item>
-          <ion-label position="floating">ユーザ名</ion-label>
-          <ion-input type="text" [(ngModel)]="data.name" name="name" required></ion-input>
-        </ion-item>
+        <ion-label position="floating">ユーザ名</ion-label>
+        <ion-input type="text" formControlName='name' name="name"></ion-input>
+        <div class="validation-errors" *ngIf="validations_form.get('name').hasError('required') 
+        && (validations_form.get('name').dirty || validations_form.get('name').touched)">       
+          <div _ngcontent-c0="" class="validation-errors">
+            <div _ngcontent-c0="" class="error-message">
+              <ion-icon _ngcontent-c0="" name="information-circle-outline" role="img" class="hydrated" aria-label="information circle outline">    
+              </ion-icon> ユーザー名がありません 
+            </div>
+          </div>
+        </div>
+      </ion-item>
       <ion-item>
           <ion-label text-wrap>
               <p>e-mail</p>
@@ -42,22 +51,67 @@
       </ion-item>
       <ion-item>
           <ion-label position="floating">性別</ion-label>
-          <ion-select [(ngModel)]="data.sex" name="sex" required>
+          <ion-select formControlName='sex' name="sex">
             <ion-select-option value="f">Female</ion-select-option>
             <ion-select-option value="m">Male</ion-select-option>
           </ion-select>
+          <div class="validation-errors" *ngIf="validations_form.get('sex').hasError('required')
+          && (validations_form.get('sex').dirty || validations_form.get('sex').touched)">       
+              <div _ngcontent-c0="" class="validation-errors">
+                <div _ngcontent-c0="" class="error-message">
+                  <ion-icon _ngcontent-c0="" name="information-circle-outline" role="img" class="hydrated" aria-label="information circle outline">    
+                  </ion-icon>必須です 
+                </div>
+              </div>
+          </div>
       </ion-item>
       <ion-item>
         <ion-label position="floating">誕生日</ion-label>
-          <ion-datetime type="text" [(ngModel)]="data.birthday" value="data.birthday" name="birthday" required></ion-datetime>
+          <ion-datetime type="text" formControlName='birthday' name="birthday"></ion-datetime>
       </ion-item>
-      <ion-item>
+      <div class="validation-errors" *ngIf="validations_form.get('birthday').hasError('required')
+      && (validations_form.get('birthday').dirty || validations_form.get('birthday').touched)">       
+          <div _ngcontent-c0="" class="validation-errors">
+            <div _ngcontent-c0="" class="error-message">
+              <ion-icon _ngcontent-c0="" name="information-circle-outline" role="img" class="hydrated" aria-label="information circle outline">    
+              </ion-icon>必須です 
+            </div>
+          </div>
+      </div>
+      <ion-item> 
         <ion-label position="floating">電話番号</ion-label>
-        <ion-input type="text" [(ngModel)]="data.tel" name="tel" required></ion-input>
+        <ion-input type="text" formControlName='tel' name="tel"></ion-input>
+        <div class="validation-errors" *ngIf="validations_form.get('tel').hasError('required')
+        && (validations_form.get('tel').dirty || validations_form.get('tel').touched)">     
+            <div _ngcontent-c0="" class="validation-errors">
+              <div _ngcontent-c0="" class="error-message">
+                <ion-icon _ngcontent-c0="" name="information-circle-outline" role="img" class="hydrated" aria-label="information circle outline">    
+                </ion-icon>必須です 
+              </div>
+            </div>
+        </div>  
+        <div class="validation-errors" *ngIf="validations_form.get('tel').hasError('pattern')
+        && (validations_form.get('tel').dirty || validations_form.get('tel').touched)">        
+            <div _ngcontent-c0="" class="validation-errors">
+              <div _ngcontent-c0="" class="error-message">
+                <ion-icon _ngcontent-c0="" name="information-circle-outline" role="img" class="hydrated" aria-label="information circle outline">    
+                </ion-icon>数字以外が入ってます 
+              </div>
+            </div>
+        </div>     
       </ion-item>
       <ion-item>
         <ion-label position="floating">ひとこと</ion-label>
-        <ion-input type="text" [(ngModel)]="data.message" name="message"></ion-input>
+        <ion-input type="text" formControlName='message'name="message"></ion-input>
+        <div class="validation-errors" *ngIf="!validations_form.get('message').valid
+        && (validations_form.get('message').dirty || validations_form.get('message').touched)">     
+            <div _ngcontent-c0="" class="validation-errors">
+              <div _ngcontent-c0="" class="error-message">
+                <ion-icon _ngcontent-c0="" name="information-circle-outline" role="img" class="hydrated" aria-label="information circle outline">    
+                </ion-icon>15字以内で入力してください
+              </div>
+            </div>
+        </div>
       </ion-item>
     </ion-list>
     <p>
