@@ -11,6 +11,7 @@ const routes: Routes = [
   { path: 'account', loadChildren: './account/account.module#AccountPageModule' },
   { path: 'signup', loadChildren: './signup/signup.module#SignupPageModule' },
   { path: 'chat', loadChildren: './chat/chat.module#ChatPageModule' },
+  { path: 'account-list', loadChildren: './account-list/account-list.module#AccountListPageModule' },
 ];
 
 @NgModule({

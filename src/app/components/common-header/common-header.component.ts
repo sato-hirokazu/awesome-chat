@@ -23,4 +23,7 @@ export class CommonHeaderComponent implements OnInit {
     } catch (error) {
     }
   }
+  accountList(){
+    this.navControl.navigateRoot('account-list');
+  }
 }

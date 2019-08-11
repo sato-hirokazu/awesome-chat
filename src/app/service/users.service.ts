@@ -23,6 +23,10 @@ export class UsersService {
     return this.afs.collection('users').doc(uid).valueChanges();
   }
 
+  readAllser() {
+    return this.afs.collection('users').valueChanges({idField: 'key'})
+  }
+
   updateUser(user:User) {
     this.afs.collection('users').doc(user.uid).update(user);
   }
