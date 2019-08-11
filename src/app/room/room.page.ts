@@ -26,14 +26,6 @@ export class RoomPage implements OnInit {
     },);
   }
 
-  async signOut(){
-    try{
-      await this.authService.signOut();
-      this.navControl.navigateRoot('signin');
-    } catch (error) {
-    }
-  }
-
   joinRoom(key) {
     this.navControl.navigateRoot('chat/' + key);
   }

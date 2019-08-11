@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from 'src/app/service/auth.service';
+import { NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-common-header',
@@ -7,8 +9,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CommonHeaderComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    public navControl:NavController,
+    public authService:AuthService,
+  ) { }
 
   ngOnInit() {}
 
+  async signOut(){
+    try{
+      await this.authService.signOut();
+      this.navControl.navigateRoot('signin');
+    } catch (error) {
+    }
+  }
 }
