@@ -40,7 +40,7 @@ export class AccountPage implements OnInit {
 
   async addAccount(){
     
-    const user = this.authService.onAuthStateChanged();
+    const user = this.authService.currentUser();
     const uid = user.uid;
 
     try {      
@@ -60,7 +60,6 @@ export class AccountPage implements OnInit {
       alert.present();
     }
   }
-
 
   async signOut(){
     try{

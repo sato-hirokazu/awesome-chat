@@ -19,14 +19,8 @@ export class AuthService {
     return this.afAuth.auth.signOut();
   }
 
-  onAuthStateChanged() {
+  currentUser() {
     return this.afAuth.auth.currentUser;
-    // (function(user){
-    //   if (user) {
-    //     console.log(user);
-    //     // User is signed in.
-    //   }
-    // });
   }
 }
 
