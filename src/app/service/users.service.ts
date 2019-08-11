@@ -36,6 +36,7 @@ export class UsersService {
       return this.userProfile;
     }
   }
+  
 }
 
 
