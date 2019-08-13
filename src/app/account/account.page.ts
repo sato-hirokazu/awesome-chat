@@ -126,6 +126,10 @@ export class AccountPage implements OnInit {
     });
   }
 
+  addRoom(){
+    
+  }
+
   async signOut(){
     try{
       await this.authService.signOut();
