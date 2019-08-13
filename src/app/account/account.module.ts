@@ -9,7 +9,7 @@ import { AccountPage } from './account.page';
 
 const routes: Routes = [
   {
-    path: '',
+    path: ':key',
     component: AccountPage
   }
 ];

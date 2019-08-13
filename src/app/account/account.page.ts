@@ -5,6 +5,7 @@ import { NavController, AlertController } from '@ionic/angular';
 import { AuthService } from '../service/auth.service';
 import { connectableObservableDescriptor } from 'rxjs/internal/observable/ConnectableObservable';
 import {  FormControl, FormBuilder,FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 
 
 @Component({
@@ -16,6 +17,8 @@ export class AccountPage implements OnInit {
   value:any;
   data:User;
   validations_form: FormGroup;
+  userkey: string;
+  isRead: boolean;
   
   constructor(
     public usersService:UsersService,
@@ -23,23 +26,37 @@ export class AccountPage implements OnInit {
     public authService:AuthService,
     public formBuilder: FormBuilder,
     public alertController:AlertController,
-  ) {}
-
-  ngOnInit() {
-    this.data = this.usersService.getUserProfile();
-    this.validations_form = this.formBuilder.group({     
-      birthday: new FormControl(this.data.birthday, Validators.required),
-      email: new FormControl(this.data.email, Validators.required),
-      image: new FormControl(this.data.image),
-      message: new FormControl(this.data.message, Validators.maxLength(15)),
-      name: new FormControl(this.data.name, Validators.required),
-      sex: new FormControl(this.data.sex, Validators.required),
-      tel: new FormControl(this.data.tel, [Validators.required, Validators.pattern("[0-9]*")])
-    });
+    public route: ActivatedRoute,
+  ) {
+    this.userkey = this.route.snapshot.paramMap.get('key') as string;
   }
 
+  ngOnInit() {
+
+    this.usersService.readUser(this.userkey)
+    .subscribe((val)=>{
+      const user = this.authService.currentUser();
+      if(user.uid === val['uid'] && val['name'] === ""){
+        // 編集（カレントユーザーで名前がない場合のみ）
+        this.isRead = false;
+      }else{
+        this.isRead = true;
+      }
+
+      this.data = val;
+      this.validations_form = this.formBuilder.group({     
+        birthday: new FormControl(this.data.birthday, Validators.required),
+        email: new FormControl(this.data.email, Validators.required),
+        image: new FormControl(this.data.image),
+        message: new FormControl(this.data.message, Validators.maxLength(15)),
+        name: new FormControl(this.data.name, Validators.required),
+        sex: new FormControl(this.data.sex, Validators.required),
+        tel: new FormControl(this.data.tel, [Validators.required, Validators.pattern("[0-9]*")])
+      });
+    });
+  };
+
   async addAccount(){
-    
     const user = this.authService.currentUser();
     const uid = user.uid;
 

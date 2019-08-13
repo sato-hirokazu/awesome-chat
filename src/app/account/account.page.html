@@ -27,12 +27,12 @@
 </ion-header>
 
 <ion-content main padding>
-    <form [formGroup]="validations_form">
+    <form [formGroup]="validations_form" *ngIf="validations_form">
     <ion-list>
       <ion-img [src]="data.image"></ion-img> 
       <ion-item>
         <ion-label position="floating">ユーザ名</ion-label>
-        <ion-input type="text" formControlName='name' name="name"></ion-input>
+        <ion-input [disabled]="isRead" type="text" formControlName='name'></ion-input>
         <div class="validation-errors" *ngIf="validations_form.get('name').hasError('required') 
         && (validations_form.get('name').dirty || validations_form.get('name').touched)">       
           <div _ngcontent-c0="" class="validation-errors">
@@ -51,7 +51,7 @@
       </ion-item>
       <ion-item>
           <ion-label position="floating">性別</ion-label>
-          <ion-select formControlName='sex' name="sex">
+          <ion-select [disabled]="isRead" formControlName='sex' name="sex">
             <ion-select-option value="f">Female</ion-select-option>
             <ion-select-option value="m">Male</ion-select-option>
           </ion-select>
@@ -67,7 +67,7 @@
       </ion-item>
       <ion-item>
         <ion-label position="floating">誕生日</ion-label>
-          <ion-datetime type="text" formControlName='birthday' name="birthday"></ion-datetime>
+          <ion-datetime [disabled]="isRead" type="text" formControlName='birthday' name="birthday"></ion-datetime>
       </ion-item>
       <div class="validation-errors" *ngIf="validations_form.get('birthday').hasError('required')
       && (validations_form.get('birthday').dirty || validations_form.get('birthday').touched)">       
@@ -80,7 +80,7 @@
       </div>
       <ion-item> 
         <ion-label position="floating">電話番号</ion-label>
-        <ion-input type="text" formControlName='tel' name="tel"></ion-input>
+        <ion-input [disabled]="isRead" type="text" formControlName='tel' name="tel"></ion-input>
         <div class="validation-errors" *ngIf="validations_form.get('tel').hasError('required')
         && (validations_form.get('tel').dirty || validations_form.get('tel').touched)">     
             <div _ngcontent-c0="" class="validation-errors">
@@ -102,7 +102,7 @@
       </ion-item>
       <ion-item>
         <ion-label position="floating">ひとこと</ion-label>
-        <ion-input type="text" formControlName='message'name="message"></ion-input>
+        <ion-input [disabled]="isRead" type="text" formControlName='message'name="message"></ion-input>
         <div class="validation-errors" *ngIf="!validations_form.get('message').valid
         && (validations_form.get('message').dirty || validations_form.get('message').touched)">     
             <div _ngcontent-c0="" class="validation-errors">

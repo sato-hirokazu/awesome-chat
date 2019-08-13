@@ -27,10 +27,14 @@ export class SigninPage implements OnInit {
     try{
       const user = await this.authService.signIn(this.data.email, this.data.password);
       const uid = user.user.uid;
-      
+      console.log(user);
       this.usersService.readUser(uid)
       .subscribe(async (user:User)=>{
+      // .subscribe(user=>{
         if (user && user.name) {
+        // if (user) {
+          const a = user;
+          console.log(a);
           this.navCtrl.navigateRoot('room');
         } else {
           this.usersService.setUserProfile(user);
@@ -40,7 +44,7 @@ export class SigninPage implements OnInit {
             buttons:[{
               text: 'OK',
               handler: () => {
-                this.navCtrl.navigateRoot('account');
+                this.navCtrl.navigateRoot('account/' + uid);
               }
             }]
           });

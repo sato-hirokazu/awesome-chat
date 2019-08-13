@@ -1,9 +1,20 @@
 <ion-header>
   <ion-toolbar>
+    <ion-buttons slot="end">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
     <ion-title>accountList</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-
+<!-- ion-contentに main をつけるのを忘れずに -->
+<ion-content main padding>
+  <ion-list>
+    <ion-item *ngFor="let user of users" (click)="showUser(user.key)">
+      <ion-label>
+          <h3>{{user.name}}</h3>
+          <p>{{user.email}}</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
 </ion-content>
