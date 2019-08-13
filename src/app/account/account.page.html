@@ -116,6 +116,7 @@
     </ion-list>
     <ng-container [ngSwitch]="isType">
         <ion-button expand="block" *ngSwitchCase="'addName'" color="primary" type="button" (click)="addAccount()">確定</ion-button>
+        <ion-button expand="block" *ngSwitchCase="'addName'" color="light" type="button" (click)="cancel()">キャンセル</ion-button>
         <ion-button expand="block" *ngSwitchCase="'showMe'" color="primary" type="button" (click)="editAccount()">編集</ion-button>
         <ion-button expand="block" *ngSwitchCase="'showOther'" color="primary" type="button" (click)="room()">ルーム作成</ion-button>
       </ng-container>

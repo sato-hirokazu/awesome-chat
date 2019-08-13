@@ -52,15 +52,16 @@ export class AccountPage implements OnInit {
 
       console.log(this.isType);
       this.data = val;
-      this.validations_form = this.formBuilder.group({     
-        birthday: new FormControl(this.data.birthday, Validators.required),
-        email: new FormControl(this.data.email, Validators.required),
-        image: new FormControl(this.data.image),
-        message: new FormControl(this.data.message, Validators.maxLength(15)),
-        name: new FormControl(this.data.name, Validators.required),
-        sex: new FormControl(this.data.sex, Validators.required),
-        tel: new FormControl(this.data.tel, [Validators.required, Validators.pattern("[0-9]*")])
-      });
+      this.buldForm(this.data);
+      // this.validations_form = this.formBuilder.group({     
+      //   birthday: new FormControl(this.data.birthday, Validators.required),
+      //   email: new FormControl(this.data.email, Validators.required),
+      //   image: new FormControl(this.data.image),
+      //   message: new FormControl(this.data.message, Validators.maxLength(15)),
+      //   name: new FormControl(this.data.name, Validators.required),
+      //   sex: new FormControl(this.data.sex, Validators.required),
+      //   tel: new FormControl(this.data.tel, [Validators.required, Validators.pattern("[0-9]*")])
+      // });
     });
   };
 
@@ -91,6 +92,38 @@ export class AccountPage implements OnInit {
   editAccount(){
     this.isType = "addName"
     this.isRead = false ;
+  }
+
+  async cancel(){
+      const alert = await this.alertController.create({
+        header: '警告',
+        message: "入力中の情報は破棄されますがよろしいですか？",
+        buttons: [
+          {
+            text: 'はい',
+            handler: () => {
+            this.buldForm(this.data);
+            this.isType = "showMe"
+            this.isRead = true;
+            }
+          }, {
+            text: 'キャンセル',
+          }
+        ]
+      });
+      alert.present();
+  };
+
+  buldForm(data){
+    this.validations_form = this.formBuilder.group({     
+      birthday: new FormControl(data.birthday, Validators.required),
+      email: new FormControl(data.email, Validators.required),
+      image: new FormControl(data.image),
+      message: new FormControl(data.message, Validators.maxLength(15)),
+      name: new FormControl(data.name, Validators.required),
+      sex: new FormControl(data.sex, Validators.required),
+      tel: new FormControl(data.tel, [Validators.required, Validators.pattern("[0-9]*")])
+    });
   }
 
   async signOut(){
