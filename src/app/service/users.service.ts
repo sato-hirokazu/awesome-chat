@@ -24,7 +24,8 @@ export class UsersService {
   }
 
   readAllUsers() {
-    return this.afs.collection('users').valueChanges({idField: 'key'})
+    return this.afs.collection('users', ref => ref.orderBy('name',"asc"))
+    .valueChanges({idField: 'key'});
   }
 
   updateUser(user:User) {

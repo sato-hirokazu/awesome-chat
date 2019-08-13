@@ -10,11 +10,21 @@
 <!-- ion-contentに main をつけるのを忘れずに -->
 <ion-content main padding>
   <ion-list>
+    <ion-item *ngFor="let v of me" (click)="showUser(v.key)">
+        <div>
+        <ion-label>
+          <h3>{{v.name}}</h3>
+          <p>{{v.email}}</p>
+        </ion-label>
+      </div>
+    </ion-item>
     <ion-item *ngFor="let user of users" (click)="showUser(user.key)">
-      <ion-label>
-          <h3>{{user.name}}</h3>
-          <p>{{user.email}}</p>
-      </ion-label>
+      <div>
+        <ion-label>
+            <h3>{{user.name}}</h3>
+            <p>{{user.email}}</p>
+        </ion-label>
+      </div>
     </ion-item>
   </ion-list>
 </ion-content>

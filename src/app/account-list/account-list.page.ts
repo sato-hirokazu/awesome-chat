@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { UsersService } from '../service/users.service';
 import { NavController } from '@ionic/angular';
+import { AuthService } from '../service/auth.service';
+import { User } from '../shared/user';
 
 @Component({
   selector: 'app-account-list',
@@ -9,18 +11,26 @@ import { NavController } from '@ionic/angular';
 })
 export class AccountListPage implements OnInit {
   users = [];
+  me = [];
   
   constructor(
     public usersService:UsersService,
     public navCtrl:NavController,
+    public authService:AuthService,
   ) { }
 
   ngOnInit() {
+    const user = this.authService.currentUser();
+    const uid = user.uid;
+
     this.usersService.readAllUsers()
     .subscribe((val)=>{
       val.forEach((user) => {
-        this.users.push(user);
-        console.log(user);
+        if(uid === user["uid"]){
+          this.me.push(user);
+        }else{
+          this.users.push(user);
+        }
       });
     },);
   }
