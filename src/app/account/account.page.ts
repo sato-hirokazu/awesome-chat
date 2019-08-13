@@ -6,6 +6,8 @@ import { AuthService } from '../service/auth.service';
 import { connectableObservableDescriptor } from 'rxjs/internal/observable/ConnectableObservable';
 import {  FormControl, FormBuilder,FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { Room } from '../shared/room';
+import { RoomsService } from '../service/rooms.service';
 
 
 @Component({
@@ -28,6 +30,7 @@ export class AccountPage implements OnInit {
     public formBuilder: FormBuilder,
     public alertController:AlertController,
     public route: ActivatedRoute,
+    public roomsService:RoomsService,
   ) {
     this.userkey = this.route.snapshot.paramMap.get('key') as string;
   }
@@ -53,15 +56,6 @@ export class AccountPage implements OnInit {
       console.log(this.isType);
       this.data = val;
       this.buldForm(this.data);
-      // this.validations_form = this.formBuilder.group({     
-      //   birthday: new FormControl(this.data.birthday, Validators.required),
-      //   email: new FormControl(this.data.email, Validators.required),
-      //   image: new FormControl(this.data.image),
-      //   message: new FormControl(this.data.message, Validators.maxLength(15)),
-      //   name: new FormControl(this.data.name, Validators.required),
-      //   sex: new FormControl(this.data.sex, Validators.required),
-      //   tel: new FormControl(this.data.tel, [Validators.required, Validators.pattern("[0-9]*")])
-      // });
     });
   };
 
@@ -127,7 +121,12 @@ export class AccountPage implements OnInit {
   }
 
   addRoom(){
-    
+    const room: Room = {
+      roomName: this.validations_form.value.name,
+      userId: this.data.uid,
+    };
+    this.roomsService.createRoom(room);
+    this.navCtrl.navigateRoot('chat/' + room.roomId);
   }
 
   async signOut(){

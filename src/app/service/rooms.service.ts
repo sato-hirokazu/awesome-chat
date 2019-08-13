@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { Room } from '../shared/room';
+
 
 @Injectable({
   providedIn: 'root'
@@ -12,5 +12,12 @@ export class RoomsService {
   
   readAllRooms() {
     return this.afs.collection('rooms').valueChanges({idField: 'key'})
+  }
+
+  createRoom(room) {
+    let uid = this.afs.createId();
+    room.roomId = uid;  
+    room.updateDate = new Date().getTime();
+    this.afs.collection('rooms').doc(uid).set(room);
   }
 }
