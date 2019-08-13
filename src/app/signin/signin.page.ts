@@ -3,6 +3,7 @@ import { NavController, AlertController } from '@ionic/angular';
 import { AuthService } from '../service/auth.service';
 import { UsersService } from '../service/users.service';
 import { User } from '../shared/user';
+import { take } from 'rxjs/operators';
 
 
 @Component({
@@ -27,14 +28,10 @@ export class SigninPage implements OnInit {
     try{
       const user = await this.authService.signIn(this.data.email, this.data.password);
       const uid = user.user.uid;
-      console.log(user);
       this.usersService.readUser(uid)
+      .pipe(take(1))
       .subscribe(async (user:User)=>{
-      // .subscribe(user=>{
         if (user && user.name) {
-        // if (user) {
-          const a = user;
-          console.log(a);
           this.navCtrl.navigateRoot('room');
         } else {
           this.usersService.setUserProfile(user);

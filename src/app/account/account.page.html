@@ -114,9 +114,10 @@
         </div>
       </ion-item>
     </ion-list>
-    <p>
-      <ion-button expand="block" color="primary" type="button" (click)="addAccount()">確定</ion-button>
-    </p>
-
+    <ng-container [ngSwitch]="isType">
+        <ion-button expand="block" *ngSwitchCase="'addName'" color="primary" type="button" (click)="addAccount()">確定</ion-button>
+        <ion-button expand="block" *ngSwitchCase="'showMe'" color="primary" type="button" (click)="editAccount()">編集</ion-button>
+        <ion-button expand="block" *ngSwitchCase="'showOther'" color="primary" type="button" (click)="room()">ルーム作成</ion-button>
+      </ng-container>
   </form>
 </ion-content>

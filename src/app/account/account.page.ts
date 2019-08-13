@@ -19,6 +19,7 @@ export class AccountPage implements OnInit {
   validations_form: FormGroup;
   userkey: string;
   isRead: boolean;
+  isType:string;
   
   constructor(
     public usersService:UsersService,
@@ -32,17 +33,24 @@ export class AccountPage implements OnInit {
   }
 
   ngOnInit() {
-
     this.usersService.readUser(this.userkey)
     .subscribe((val)=>{
+
       const user = this.authService.currentUser();
       if(user.uid === val['uid'] && val['name'] === ""){
-        // 編集（カレントユーザーで名前がない場合のみ）
+        this.isType = "addName";
         this.isRead = false;
-      }else{
+      }
+      if(user.uid === val['uid'] && val['name'] !== ""){
+        this.isType = "showMe";
+        this.isRead = true;
+      }
+      if(user.uid !== val['uid']){
+        this.isType = "showOther"
         this.isRead = true;
       }
 
+      console.log(this.isType);
       this.data = val;
       this.validations_form = this.formBuilder.group({     
         birthday: new FormControl(this.data.birthday, Validators.required),
@@ -67,7 +75,9 @@ export class AccountPage implements OnInit {
       }
       this.validations_form.value['uid'] = uid;
       this.usersService.updateUser(this.validations_form.value);
-      this.navCtrl.navigateRoot('room');
+      this.isType = "showMe"
+      this.isRead = true ;
+
     } catch (error) {
       const alert = await this.alertController.create({
         header: '警告',
@@ -76,6 +86,11 @@ export class AccountPage implements OnInit {
       });
       alert.present();
     }
+  }
+
+  editAccount(){
+    this.isType = "addName"
+    this.isRead = false ;
   }
 
   async signOut(){

@@ -11,7 +11,7 @@ export class AuthService {
     private afAuth: AngularFireAuth, 
     private navCtrl: NavController) {
   }
-  signIn(email: string, password: string):Promise<firebase.auth.UserCredential>{
+  signIn(email: string, password: string){
     return this.afAuth.auth.signInWithEmailAndPassword(email,password);
   }
   
