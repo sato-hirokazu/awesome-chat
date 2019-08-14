@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 
 
+
 @Injectable({
   providedIn: 'root'
 })
@@ -11,7 +12,8 @@ export class RoomsService {
   ) {}
   
   readAllRooms() {
-    return this.afs.collection('rooms').valueChanges({idField: 'key'})
+    return this.afs.collection('rooms', ref => ref.orderBy('updateDate',"desc"))
+    .valueChanges({idField: 'key'})
   }
 
   createRoom(room) {

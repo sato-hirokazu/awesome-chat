@@ -121,9 +121,13 @@ export class AccountPage implements OnInit {
   }
 
   addRoom(){
+    const user = this.authService.currentUser();
     const room: Room = {
       roomName: this.validations_form.value.name,
-      userId: this.data.uid,
+      userId:[      
+        user.uid,//自分
+        this.data.uid,//相手
+       ] 
     };
     this.roomsService.createRoom(room);
     this.navCtrl.navigateRoot('chat/' + room.roomId);
