@@ -12,6 +12,7 @@
 <ion-content main padding>
   <ion-list>
     <ion-item *ngFor="let room of rooms" (click)="joinRoom(room.key)">
+        <ion-img src="../../assets/imgs/user/cat.png"></ion-img> 
         <p>{{room.roomName}}</p>
         <p>{{room.updateDate | datepipe}}</p>
       <ion-icon name="chatboxes" slot="end"></ion-icon>
