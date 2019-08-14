@@ -1,18 +1,11 @@
-<app-common-header></app-common-header>
-<ion-header>
-  <ion-toolbar>
-    <ion-buttons slot="end">
-      <ion-menu-button></ion-menu-button>
-    </ion-buttons>
-    <ion-title>room</ion-title>
-  </ion-toolbar>
-</ion-header>
+<app-common-header title="Room"></app-common-header>
+
 
 <!-- ion-contentに main をつけるのを忘れずに -->
-<ion-content main padding>
+<ion-content main padding >
   <ion-list>
     <ion-item *ngFor="let room of rooms" (click)="joinRoom(room.key)">
-        <ion-avatar slot="start">
+        <ion-avatar>
           <ion-img src="../../assets/imgs/user/cat.png"></ion-img> 
         </ion-avatar>
         <ion-label>

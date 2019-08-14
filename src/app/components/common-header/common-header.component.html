@@ -1,3 +1,17 @@
+<ion-header>
+    <ion-toolbar>       
+      <ion-buttons>
+          <button (click)='navigateForward()'>
+            <ion-icon name="arrow-round-back"></ion-icon>
+          </button>
+        </ion-buttons>
+        <ion-buttons slot="end">
+            <ion-menu-button></ion-menu-button>
+          </ion-buttons>
+      <ion-title slot="secondary">{{title}}</ion-title>
+    </ion-toolbar>
+</ion-header>
+
   <ion-menu side="end">
     <ion-header>
       <ion-toolbar>
@@ -9,17 +23,22 @@
         <ion-menu-toggle>
           <ion-item>
               <ion-label (click)="accountList()">
-                Account list
+                アカウント一覧
               </ion-label>
             </ion-item>
           <ion-item>
-              <ion-label>
+              <ion-label (click)="roomList()">
                 ルーム一覧
+              </ion-label>
+          </ion-item>
+          <ion-item>
+              <ion-label>
+                スレッド一覧
               </ion-label>
           </ion-item>
           <ion-item>  
             <ion-label (click)="signOut()">
-              Sign Out
+              ログアウト
             </ion-label>
           </ion-item>
         </ion-menu-toggle>
