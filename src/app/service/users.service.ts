@@ -28,6 +28,11 @@ export class UsersService {
     .valueChanges({idField: 'key'});
   }
 
+  readAllUsersWithoutKey() {
+    return this.afs.collection<User>('users', ref => ref.orderBy('name',"asc"))
+    .valueChanges();
+  }
+
   updateUser(user:User) {
     this.afs.collection('users').doc(user.uid).update(user);
   }
