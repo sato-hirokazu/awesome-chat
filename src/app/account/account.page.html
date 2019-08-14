@@ -3,8 +3,10 @@
 <ion-content main padding>
     <form [formGroup]="validations_form" *ngIf="validations_form">
     <ion-list>
-      <ion-img [src]="data.image"></ion-img> 
       <ion-item>
+        <ion-avatar slot="start">
+            <ion-img [src]="data.image"></ion-img> 
+        </ion-avatar>
         <ion-label position="floating">ユーザ名</ion-label>
         <ion-input [disabled]="isRead" type="text" formControlName='name'></ion-input>
         <div class="validation-errors" *ngIf="validations_form.get('name').hasError('required') 
@@ -16,12 +18,10 @@
             </div>
           </div>
         </div>
-      </ion-item>
-      <ion-item>
-          <ion-label text-wrap>
-              <p>e-mail</p>
-              <p>{{data.email}}</p>
-          </ion-label>
+        <ion-label text-wrap>
+            <p>e-mail</p>
+            <p>{{data.email}}</p>
+        </ion-label>
       </ion-item>
       <ion-item>
           <ion-label position="floating">性別</ion-label>
