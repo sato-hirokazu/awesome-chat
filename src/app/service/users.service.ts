@@ -20,7 +20,7 @@ export class UsersService {
   ) { }
 
   readUser(uid:string) {
-    return this.afs.collection('users').doc(uid).valueChanges();
+    return this.afs.collection('users').doc<User>(uid).valueChanges();
   }
 
   readAllUsers() {
