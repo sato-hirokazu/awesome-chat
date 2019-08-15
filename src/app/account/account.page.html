@@ -1,99 +1,121 @@
 <app-common-header title="account"></app-common-header>
 
 <ion-content main padding>
-    <form [formGroup]="validations_form" *ngIf="validations_form">
+  <form [formGroup]="validations_form" *ngIf="validations_form">
     <ion-list>
-      <ion-item>
+      <div class="container">
         <ion-avatar slot="start">
-            <ion-img [src]="data.image"></ion-img> 
+          <ion-img [src]="data.image"></ion-img>
         </ion-avatar>
-        <ion-label position="floating">ユーザ名</ion-label>
-        <ion-input [disabled]="isRead" type="text" formControlName='name'></ion-input>
-        <div class="validation-errors" *ngIf="validations_form.get('name').hasError('required') 
-        && (validations_form.get('name').dirty || validations_form.get('name').touched)">       
+        <div class="container1">
+          <ion-item>
+            <ion-label position="floating">ユーザ名</ion-label>
+            <ion-input [disabled]="isRead" type="text" formControlName='name'></ion-input>
+            <div class="validation-errors" *ngIf="validations_form.get('name').hasError('required') 
+                && (validations_form.get('name').dirty || validations_form.get('name').touched)">
+              <div _ngcontent-c0="" class="validation-errors">
+                <div _ngcontent-c0="" class="error-message">
+                  <ion-icon _ngcontent-c0="" name="information-circle-outline" role="img" class="hydrated"
+                    aria-label="information circle outline">
+                  </ion-icon> ユーザー名がありません
+                </div>
+              </div>
+            </div>
+          </ion-item>
+          <ion-item>
+            <ion-label>
+              <p>e-mail</p>
+              <p>{{data.email}}</p>
+            </ion-label>
+          </ion-item>
+        </div>
+        <div>
+        </div>
+      </div>
+
+      <ion-item>
+        <ion-label position="floating">性別</ion-label>
+        <ion-select [disabled]="isRead" formControlName='sex' name="sex">
+          <ion-select-option value="f">Female</ion-select-option>
+          <ion-select-option value="m">Male</ion-select-option>
+        </ion-select>
+        <div class="validation-errors" *ngIf="validations_form.get('sex').hasError('required')
+          && (validations_form.get('sex').dirty || validations_form.get('sex').touched)">
           <div _ngcontent-c0="" class="validation-errors">
             <div _ngcontent-c0="" class="error-message">
-              <ion-icon _ngcontent-c0="" name="information-circle-outline" role="img" class="hydrated" aria-label="information circle outline">    
-              </ion-icon> ユーザー名がありません 
+              <ion-icon _ngcontent-c0="" name="information-circle-outline" role="img" class="hydrated"
+                aria-label="information circle outline">
+              </ion-icon>必須です
             </div>
           </div>
         </div>
-        <ion-label text-wrap>
-            <p>e-mail</p>
-            <p>{{data.email}}</p>
-        </ion-label>
-      </ion-item>
-      <ion-item>
-          <ion-label position="floating">性別</ion-label>
-          <ion-select [disabled]="isRead" formControlName='sex' name="sex">
-            <ion-select-option value="f">Female</ion-select-option>
-            <ion-select-option value="m">Male</ion-select-option>
-          </ion-select>
-          <div class="validation-errors" *ngIf="validations_form.get('sex').hasError('required')
-          && (validations_form.get('sex').dirty || validations_form.get('sex').touched)">       
-              <div _ngcontent-c0="" class="validation-errors">
-                <div _ngcontent-c0="" class="error-message">
-                  <ion-icon _ngcontent-c0="" name="information-circle-outline" role="img" class="hydrated" aria-label="information circle outline">    
-                  </ion-icon>必須です 
-                </div>
-              </div>
-          </div>
       </ion-item>
       <ion-item>
         <ion-label position="floating">誕生日</ion-label>
-          <ion-datetime [disabled]="isRead" type="text" formControlName='birthday' name="birthday"></ion-datetime>
+        <ion-datetime [disabled]="isRead" type="text" formControlName='birthday' name="birthday"></ion-datetime>
       </ion-item>
       <div class="validation-errors" *ngIf="validations_form.get('birthday').hasError('required')
-      && (validations_form.get('birthday').dirty || validations_form.get('birthday').touched)">       
-          <div _ngcontent-c0="" class="validation-errors">
-            <div _ngcontent-c0="" class="error-message">
-              <ion-icon _ngcontent-c0="" name="information-circle-outline" role="img" class="hydrated" aria-label="information circle outline">    
-              </ion-icon>必須です 
-            </div>
+      && (validations_form.get('birthday').dirty || validations_form.get('birthday').touched)">
+        <div _ngcontent-c0="" class="validation-errors">
+          <div _ngcontent-c0="" class="error-message">
+            <ion-icon _ngcontent-c0="" name="information-circle-outline" role="img" class="hydrated"
+              aria-label="information circle outline">
+            </ion-icon>必須です
           </div>
+        </div>
       </div>
-      <ion-item> 
+      <ion-item>
         <ion-label position="floating">電話番号</ion-label>
         <ion-input [disabled]="isRead" type="text" formControlName='tel' name="tel"></ion-input>
         <div class="validation-errors" *ngIf="validations_form.get('tel').hasError('required')
-        && (validations_form.get('tel').dirty || validations_form.get('tel').touched)">     
-            <div _ngcontent-c0="" class="validation-errors">
-              <div _ngcontent-c0="" class="error-message">
-                <ion-icon _ngcontent-c0="" name="information-circle-outline" role="img" class="hydrated" aria-label="information circle outline">    
-                </ion-icon>必須です 
-              </div>
+        && (validations_form.get('tel').dirty || validations_form.get('tel').touched)">
+          <div _ngcontent-c0="" class="validation-errors">
+            <div _ngcontent-c0="" class="error-message">
+              <ion-icon _ngcontent-c0="" name="information-circle-outline" role="img" class="hydrated"
+                aria-label="information circle outline">
+              </ion-icon>必須です
             </div>
-        </div>  
+          </div>
+        </div>
         <div class="validation-errors" *ngIf="validations_form.get('tel').hasError('pattern')
-        && (validations_form.get('tel').dirty || validations_form.get('tel').touched)">        
-            <div _ngcontent-c0="" class="validation-errors">
-              <div _ngcontent-c0="" class="error-message">
-                <ion-icon _ngcontent-c0="" name="information-circle-outline" role="img" class="hydrated" aria-label="information circle outline">    
-                </ion-icon>数字以外が入ってます 
-              </div>
+        && (validations_form.get('tel').dirty || validations_form.get('tel').touched)">
+          <div _ngcontent-c0="" class="validation-errors">
+            <div _ngcontent-c0="" class="error-message">
+              <ion-icon _ngcontent-c0="" name="information-circle-outline" role="img" class="hydrated"
+                aria-label="information circle outline">
+              </ion-icon>数字以外が入ってます
             </div>
-        </div>     
+          </div>
+        </div>
       </ion-item>
       <ion-item>
         <ion-label position="floating">ひとこと</ion-label>
-        <ion-input [disabled]="isRead" type="text" formControlName='message'name="message"></ion-input>
+        <ion-input [disabled]="isRead" type="text" formControlName='message' name="message"></ion-input>
         <div class="validation-errors" *ngIf="!validations_form.get('message').valid
-        && (validations_form.get('message').dirty || validations_form.get('message').touched)">     
-            <div _ngcontent-c0="" class="validation-errors">
-              <div _ngcontent-c0="" class="error-message">
-                <ion-icon _ngcontent-c0="" name="information-circle-outline" role="img" class="hydrated" aria-label="information circle outline">    
-                </ion-icon>15字以内で入力してください
-              </div>
+        && (validations_form.get('message').dirty || validations_form.get('message').touched)">
+          <div _ngcontent-c0="" class="validation-errors">
+            <div _ngcontent-c0="" class="error-message">
+              <ion-icon _ngcontent-c0="" name="information-circle-outline" role="img" class="hydrated"
+                aria-label="information circle outline">
+              </ion-icon>15字以内で入力してください
             </div>
+          </div>
         </div>
       </ion-item>
     </ion-list>
     <ng-container [ngSwitch]="isType">
-        <ion-button expand="block" *ngSwitchCase="'addName'" color="primary" type="button" (click)="addAccount()">確定</ion-button>
-        <ion-button expand="block" *ngSwitchCase="'addName'" color="light" type="button" (click)="cancel()">キャンセル</ion-button>
-        <ion-button expand="block" *ngSwitchCase="'showMe'" color="primary" type="button" (click)="editAccount()">編集</ion-button>
-        <p><ion-button expand="block" *ngSwitchCase="'showMe'" color="danger" type="button" (click)="deleteAccount()">削除</ion-button></p>
-        <ion-button expand="block" *ngSwitchCase="'showOther'" color="primary" type="button" (click)="addRoom()">ルーム作成</ion-button>
-      </ng-container>
+      <ion-button expand="block" *ngSwitchCase="'addName'" color="primary" type="button" (click)="addAccount()">確定
+      </ion-button>
+      <ion-button expand="block" *ngSwitchCase="'addName'" color="light" type="button" (click)="cancel()">キャンセル
+      </ion-button>
+      <ion-button expand="block" *ngSwitchCase="'showMe'" color="primary" type="button" (click)="editAccount()">編集
+      </ion-button>
+      <p>
+        <ion-button expand="block" *ngSwitchCase="'showMe'" color="danger" type="button" (click)="deleteAccount()">削除
+        </ion-button>
+      </p>
+      <ion-button expand="block" *ngSwitchCase="'showOther'" color="primary" type="button" (click)="addRoom()">ルーム作成
+      </ion-button>
+    </ng-container>
   </form>
 </ion-content>
