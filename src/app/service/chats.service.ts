@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Chat } from '../shared/chat';
+import { Room } from '../shared/room';
 
 @Injectable({
   providedIn: 'root'
@@ -23,5 +24,10 @@ export class ChatService {
     chat.chatId = uid
     chat.sendDate = new Date().getTime();
     this.afs.collection('rooms').doc(roomkey).collection('chats').doc(uid).set(chat);
+    const room: Room = {
+      lastMessage: chat.message,
+      updateDate: chat.sendDate,
+    };
+    this.afs.collection('rooms').doc(roomkey).update(room);
   }
 }
