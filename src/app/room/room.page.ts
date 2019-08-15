@@ -12,6 +12,7 @@ import { User } from '../shared/user';
 })
 export class RoomPage implements OnInit {
   usersMap:{[userId:string]: User} = {};
+  currentUserId:string;
 
   rooms = [];
   constructor(
@@ -19,7 +20,9 @@ export class RoomPage implements OnInit {
     public authService:AuthService,
     public roomsService:RoomsService,
     public usersService:UsersService,
-    ) {}
+    ) {
+      this.currentUserId = this.authService.currentUserId();
+    }
 
   ngOnInit() {
     this.usersService.readAllUsersWithoutKey()
@@ -32,10 +35,10 @@ export class RoomPage implements OnInit {
     this.roomsService.readAllRooms()
     .subscribe((rooms)=>{
       rooms.forEach((room) => {
-        const user = this.authService.currentUser();
-        if(room["userId"].includes(user.uid)){
+        if(room["userId"].includes(this.currentUserId)){
+          // 相手ユーザ
           const otherId = room["userId"].filter((userId) => {
-            return userId != user.uid;
+            return userId !== this.currentUserId;
           });
           room["roomName"] = this.usersMap[otherId].name
           this.rooms.push(room);

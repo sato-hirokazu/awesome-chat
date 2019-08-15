@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { UsersService } from '../service/users.service';
 import { NavController } from '@ionic/angular';
 import { AuthService } from '../service/auth.service';
-import { User } from '../shared/user';
 
 @Component({
   selector: 'app-account-list',
@@ -12,23 +11,23 @@ import { User } from '../shared/user';
 export class AccountListPage implements OnInit {
   users = [];
   me = [];
+  currentUserId:string;
   
   constructor(
     public usersService:UsersService,
     public navCtrl:NavController,
     public authService:AuthService,
-  ) { }
+  ) { 
+    this.currentUserId = this.authService.currentUserId();
+  }
 
   ngOnInit() {
-    const user = this.authService.currentUser();
-    const uid = user.uid;
-
     this.usersService.readAllUsers()
     .subscribe((val)=>{
       this.me = [];
       this.users = [];
       val.forEach((user) => {
-        if(uid === user["uid"]){
+        if(this.currentUserId === user["uid"]){
           this.me.push(user);
         }else{
           this.users.push(user);

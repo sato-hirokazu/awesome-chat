@@ -15,7 +15,7 @@ import { RoomsService } from '../service/rooms.service';
   styleUrls: ['./account.page.scss'],
 })
 export class AccountPage implements OnInit {
-  value:any;
+  // value:any;
   initData:User;
   validations_form: FormGroup;
   userId: string;
@@ -143,10 +143,5 @@ export class AccountPage implements OnInit {
     };
     this.roomsService.createRoom(room);
     this.navCtrl.navigateRoot('chat/' + room.roomId);
-  }
-
-  async signOut(){
-      await this.authService.signOut();
-      this.navCtrl.navigateRoot('signin');
   }
 }
