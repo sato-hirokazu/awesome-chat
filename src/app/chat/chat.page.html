@@ -1,51 +1,57 @@
-  <app-common-header title="{{roomName}}"></app-common-header>
-  <ion-content main padding>
-    <ion-list class="chat-list">
-      <ion-item *ngFor="let chat of chats" lines="none">
-        <div class="chat-status" text-center *ngIf="chat.type==='join'||chat.type==='exit';else message">
-          <!-- <span class="msg-date">{{chat.sendDate.toDate() | date: 'hh:mm'}}</span> -->
-        </div>
-        <ng-template #message class="aaa">
-          <div class="chat-message" style="text-align: left" *ngIf="chat.userId === uid">
-            <div class="right-bubble">
-              <!-- <span class="msg-name">Me</span> -->
-              <p text-wrap>{{chat.message}}</p>
-            </div>
-            <div class="right-date" *ngIf="chat.isRead === true;else isRead">
-              既読<br>{{chat.sendDate | datepipe}}
-            </div>
-            <ng-template #isRead>
-              <div class="right-date">
+<app-common-header title="{{roomName}}"></app-common-header>
+<ion-content main padding>
+  <ion-list class="chat-list">
+    <ion-item *ngFor="let chat of chats" lines="none">
+      <div class="chat-status" text-center *ngIf="chat.type==='join'||chat.type==='exit';else message">
+        <!-- <span class="msg-date">{{chat.sendDate.toDate() | date: 'hh:mm'}}</span> -->
+      </div>
+      <ng-template #message class="aaa">
+        <div class="chat-message" style="text-align: left" *ngIf="chat.userId === uid">
+          <div class="right-bubble">
+            <!-- <span class="msg-name">Me</span> -->
+            <p text-wrap>{{chat.message}}</p>
+          </div>
+          <div class="right-date" *ngIf="chat.isRead === true;else isRead">
+            既読<br>{{chat.sendDate | datepipe}}
+          </div>
+          <ng-template #isRead>
+            <div class="right-date">
               未読<br>{{chat.sendDate | datepipe}}
             </div>
-            </ng-template>
-          </div>
-          <div class="chat-message" text-left *ngIf="chat.userId !== uid">
+          </ng-template>
+        </div>
+        <div class="chat-message" text-left *ngIf="chat.userId !== uid">
+          <div>
+            <ion-avatar slot="start">
+              <ion-img src="../../assets/imgs/user/cat.png"></ion-img>
+            </ion-avatar>
             <div class="left-bubble">
               <p text-wrap>{{chat.message}}</p>
             </div>
             <div class="left-date" *ngIf="chat.isRead === true;else isRead">
-                既読<br>{{chat.sendDate | datepipe}}
-              </div>
-              <ng-template #isRead>
-                <div class="left-date">
+              既読<br>{{chat.sendDate | datepipe}}
+            </div>
+            <ng-template #isRead>
+              <div class="left-date">
                 未読<br>{{chat.sendDate | datepipe}}
               </div>
-              </ng-template>
-          </div>
-        </ng-template>     
-      </ion-item>
-    </ion-list>
-  </ion-content>
 
-  <ion-footer>
-    <ion-toolbar>
-      <ion-input type="text" placeholder="Type a message" [(ngModel)]="chatMessage" name="message"></ion-input>
-      <ion-buttons slot="end">
-        <ion-button slot="end" color="primary" (click)="sendChatMessage()">
-          Send
-          <ion-icon name="send"></ion-icon>
-        </ion-button>
-      </ion-buttons>
-    </ion-toolbar>
-  </ion-footer>
+            </ng-template>
+          </div>
+        </div>
+      </ng-template>
+    </ion-item>
+  </ion-list>
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-input type="text" placeholder="Type a message" [(ngModel)]="chatMessage" name="message"></ion-input>
+    <ion-buttons slot="end">
+      <ion-button slot="end" color="primary" (click)="sendChatMessage()">
+        Send
+        <ion-icon name="send"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>
