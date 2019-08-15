@@ -19,6 +19,9 @@ export class ChatService {
   }
 
   createChat(roomkey:string, chat) {
-    this.afs.collection('rooms').doc(roomkey).collection('chats').add(chat);
+    let uid = this.afs.createId();
+    chat.chatId = uid
+    chat.sendDate = new Date().getTime();
+    this.afs.collection('rooms').doc(roomkey).collection('chats').doc(uid).set(chat);
   }
 }

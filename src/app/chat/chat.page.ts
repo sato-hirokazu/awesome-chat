@@ -3,6 +3,10 @@ import { ActivatedRoute } from '@angular/router';
 import { NavController, IonContent } from '@ionic/angular';
 import { ChatService } from '../service/chats.service';
 import { Chat } from '../shared/chat';
+import { AuthService } from '../service/auth.service';
+import { UsersService } from '../service/users.service';
+import { User } from '../shared/user';
+import { RoomsService } from '../service/rooms.service';
 
 @Component({
   selector: 'app-chat',
@@ -12,8 +16,10 @@ import { Chat } from '../shared/chat';
 export class ChatPage implements OnInit {
 
   roomkey: string;
-  nickname: string;
+  roomName: string;
   chatMessage: string;
+  uid:string;
+  usersMap:{[userId:string]: User} = {};
 
   chats = [];
   offStatus = false;
@@ -24,17 +30,36 @@ export class ChatPage implements OnInit {
     public navCtrl: NavController, 
     public route: ActivatedRoute,
     public chatsService:ChatService,
+    public authService:AuthService,
+    public usersService:UsersService,
+    public roomeService:RoomsService,
   ) {
     this.roomkey = this.route.snapshot.paramMap.get('key') as string;
-    // とりあえずベタ書き
-    this.nickname = "sakiko";
+    const user = this.authService.currentUser();
+    this.uid = user.uid;
     this.displayChatMessage();
    }
 
   ngOnInit() {
   }
   
-  displayChatMessage() {
+  async displayChatMessage() {
+
+    this.usersService.readAllUsersWithoutKey()
+    .subscribe((users) =>{
+      users.forEach((user)=> {
+        this.usersMap[user.uid] = user
+      })
+    })
+
+    await this.roomeService.readRoom(this.roomkey)
+    .subscribe((room) =>{
+      const otherId = room["userId"].filter((userId) => {
+        return userId != this.uid;
+      });
+      this.roomName = this.usersMap[otherId].name
+    });
+
     this.chatsService.readChat(this.roomkey)
     .subscribe((message)=>{   
       this.chats = [];
@@ -53,8 +78,7 @@ export class ChatPage implements OnInit {
 
     const chat: Chat = {
       message: message,
-      user: this.nickname,
-      sendDate:new Date()
+      userId: this.uid,
     };
     this.chatsService.createChat(this.roomkey, chat);
   }

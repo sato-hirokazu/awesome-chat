@@ -123,7 +123,6 @@ export class AccountPage implements OnInit {
   addRoom(){
     const user = this.authService.currentUser();
     const room: Room = {
-      roomName: this.validations_form.value.name,
       userId:[      
         user.uid,//自分
         this.data.uid,//相手

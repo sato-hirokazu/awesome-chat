@@ -16,6 +16,10 @@ export class RoomsService {
     .valueChanges({idField: 'key'})
   }
 
+  readRoom(roomId:string) {
+    return this.afs.collection('rooms').doc(roomId).valueChanges();
+  }
+
   createRoom(room) {
     let uid = this.afs.createId();
     room.roomId = uid;  

@@ -1,6 +1,7 @@
 
 export interface Chat {
     message?: string;
-    user?: string;
+    userId?: string;
+    chatId?: string;
     sendDate?: Date;
   }
