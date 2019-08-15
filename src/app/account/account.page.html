@@ -1,4 +1,4 @@
-<app-common-header title="accountList"></app-common-header>
+<app-common-header title="account"></app-common-header>
 
 <ion-content main padding>
     <form [formGroup]="validations_form" *ngIf="validations_form">
@@ -92,6 +92,7 @@
         <ion-button expand="block" *ngSwitchCase="'addName'" color="primary" type="button" (click)="addAccount()">確定</ion-button>
         <ion-button expand="block" *ngSwitchCase="'addName'" color="light" type="button" (click)="cancel()">キャンセル</ion-button>
         <ion-button expand="block" *ngSwitchCase="'showMe'" color="primary" type="button" (click)="editAccount()">編集</ion-button>
+        <p><ion-button expand="block" *ngSwitchCase="'showMe'" color="danger" type="button" (click)="deleteAccount()">削除</ion-button></p>
         <ion-button expand="block" *ngSwitchCase="'showOther'" color="primary" type="button" (click)="addRoom()">ルーム作成</ion-button>
       </ng-container>
   </form>

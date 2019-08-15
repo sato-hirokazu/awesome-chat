@@ -108,6 +108,28 @@ export class AccountPage implements OnInit {
       alert.present();
   };
 
+  async deleteAccount(){
+    const user = this.authService.currentUser();
+    const uid = user.uid;
+
+    const alert = await this.alertController.create({
+      header: '警告',
+      message: "削除しますがよろしいですか？",
+      buttons: [
+        {
+          text: 'はい',
+          handler: () => {
+            this.usersService.deleteUser(uid);
+            this.navCtrl.navigateRoot('account-list');
+          }
+        }, {
+          text: 'キャンセル',
+        }
+      ]
+    });
+    alert.present();
+};
+
   buldForm(data){
     this.validations_form = this.formBuilder.group({     
       birthday: new FormControl(data.birthday, Validators.required),

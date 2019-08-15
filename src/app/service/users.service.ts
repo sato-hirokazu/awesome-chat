@@ -37,6 +37,12 @@ export class UsersService {
     this.afs.collection('users').doc(user.uid).update(user);
   }
 
+  deleteUser(uid:string) {
+    console.log(uid);
+    this.afs.collection('users').doc(uid).delete();
+  }
+
+
   setUserProfile(userProfile:User){
     this.userProfile = userProfile;
   }
