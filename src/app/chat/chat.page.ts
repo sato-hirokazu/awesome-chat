@@ -18,8 +18,8 @@ export class ChatPage implements OnInit {
   roomkey: string;
   roomName: string;
   chatMessage: string;
-  uid:string;
   usersMap:{[userId:string]: User} = {};
+  currentUserId:string;
 
   chats = [];
   offStatus = false;
@@ -35,19 +35,15 @@ export class ChatPage implements OnInit {
     public roomeService:RoomsService,
   ) {
     this.roomkey = this.route.snapshot.paramMap.get('key') as string;
-    const user = this.authService.currentUser();
-    this.uid = user.uid;
+    this.currentUserId = this.authService.currentUserId();
     this.displayChatMessage();
-    console.log("constructor");
    }
 
   ngOnInit() {
-    console.log("ngOnInit");
   }
   
   async displayChatMessage() {
-    console.log("displayChatMessage");
-    this.usersService.readAllUsersWithoutKey()
+    await this.usersService.readAllUsersWithoutKey()
     .subscribe((users) =>{
       users.forEach((user)=> {
         this.usersMap[user.uid] = user
@@ -57,7 +53,7 @@ export class ChatPage implements OnInit {
     await this.roomeService.readRoom(this.roomkey)
     .subscribe((room) =>{
       const otherId = room["userId"].filter((userId) => {
-        return userId != this.uid;
+        return userId != this.currentUserId;
       });
       this.roomName = this.usersMap[otherId].name
     });
@@ -66,7 +62,7 @@ export class ChatPage implements OnInit {
     .subscribe((message)=>{   
       this.chats = [];
       message.forEach((msg) => {
-        if(msg.userId !== this.uid){
+        if(msg.userId !== this.currentUserId){
           msg.isRead= true,
           this.chatsService.updateChat(this.roomkey, msg)
         }
@@ -76,16 +72,14 @@ export class ChatPage implements OnInit {
   }
 
   sendChatMessage() {
-    console.log("sendChatMessage");
     this.sendMessage('message', this.chatMessage);
     this.chatMessage = "";
   }
 
   sendMessage(type: string, message: string) {
-    console.log("sendMessage");
     const chat: Chat = {
       message: message,
-      userId: this.uid,
+      userId: this.currentUserId,
       isRead: false,
     };
     this.chatsService.createChat(this.roomkey, chat);

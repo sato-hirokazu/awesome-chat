@@ -6,7 +6,7 @@
         <!-- <span class="msg-date">{{chat.sendDate.toDate() | date: 'hh:mm'}}</span> -->
       </div>
       <ng-template #message class="aaa">
-        <div class="chat-message" style="text-align: left" *ngIf="chat.userId === uid">
+        <div class="chat-message" style="text-align: left" *ngIf="chat.userId === currentUserId">
           <div class="right-bubble">
             <!-- <span class="msg-name">Me</span> -->
             <p text-wrap>{{chat.message}}</p>
@@ -20,7 +20,7 @@
             </div>
           </ng-template>
         </div>
-        <div class="chat-message" text-left *ngIf="chat.userId !== uid">
+        <div class="chat-message" text-left *ngIf="chat.userId !== currentUserId">
           <div>
             <ion-avatar slot="start">
               <ion-img src="../../assets/imgs/user/cat.png"></ion-img>
