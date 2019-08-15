@@ -25,6 +25,8 @@ export class AccountListPage implements OnInit {
 
     this.usersService.readAllUsers()
     .subscribe((val)=>{
+      this.me = [];
+      this.users = [];
       val.forEach((user) => {
         if(uid === user["uid"]){
           this.me.push(user);
