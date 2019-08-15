@@ -25,13 +25,7 @@ export class RoomPage implements OnInit {
     }
 
   ngOnInit() {
-    this.usersService.readAllUsersWithoutKey()
-    .subscribe((users) =>{
-      users.forEach((user)=> {
-        this.usersMap[user.uid] = user
-      })
-    })
-
+    this.usersMap = this.usersService.readAllUsersMap()
     this.roomsService.readAllRooms()
     .subscribe((rooms)=>{
       rooms.forEach((room) => {

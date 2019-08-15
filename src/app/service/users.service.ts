@@ -14,6 +14,7 @@ import { Observable } from 'rxjs';
 export class UsersService {
 
   userProfile: User;
+  usersMap:{[userId:string]: User} = {};
 
   constructor(
     private afs: AngularFirestore,
@@ -28,9 +29,15 @@ export class UsersService {
     .valueChanges({idField: 'key'});
   }
 
-  readAllUsersWithoutKey() {
-    return this.afs.collection<User>('users', ref => ref.orderBy('name',"asc"))
-    .valueChanges();
+  readAllUsersMap() {
+     this.afs.collection<User>('users', ref => ref.orderBy('name',"asc"))
+    .valueChanges()
+    .subscribe((users) =>{
+      users.forEach((user)=> {
+        this.usersMap[user.uid] = user
+      })
+    })
+    return this.usersMap;
   }
 
   updateUser(user:User) {
