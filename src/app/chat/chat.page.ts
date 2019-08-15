@@ -38,13 +38,15 @@ export class ChatPage implements OnInit {
     const user = this.authService.currentUser();
     this.uid = user.uid;
     this.displayChatMessage();
+    console.log("constructor");
    }
 
   ngOnInit() {
+    console.log("ngOnInit");
   }
   
   async displayChatMessage() {
-
+    console.log("displayChatMessage");
     this.usersService.readAllUsersWithoutKey()
     .subscribe((users) =>{
       users.forEach((user)=> {
@@ -64,21 +66,27 @@ export class ChatPage implements OnInit {
     .subscribe((message)=>{   
       this.chats = [];
       message.forEach((msg) => {
+        if(msg.userId !== this.uid){
+          msg.isRead= true,
+          this.chatsService.updateChat(this.roomkey, msg)
+        }
         this.chats.push(msg);
       });
     },);
   }
 
   sendChatMessage() {
+    console.log("sendChatMessage");
     this.sendMessage('message', this.chatMessage);
     this.chatMessage = "";
   }
 
   sendMessage(type: string, message: string) {
-
+    console.log("sendMessage");
     const chat: Chat = {
       message: message,
       userId: this.uid,
+      isRead: false,
     };
     this.chatsService.createChat(this.roomkey, chat);
   }

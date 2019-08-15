@@ -30,4 +30,9 @@ export class ChatService {
     };
     this.afs.collection('rooms').doc(roomkey).update(room);
   }
+
+  updateChat(roomkey:string, chat) {
+    this.afs.collection('rooms').doc(roomkey).collection('chats').doc(chat.chatId).update(chat);
+  }
 }
+

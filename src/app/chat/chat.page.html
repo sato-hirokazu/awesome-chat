@@ -1,8 +1,3 @@
-<!-- <ion-header>
-    <ion-toolbar>
-      <ion-title>{{roomName}}</ion-title>
-    </ion-toolbar>
-  </ion-header> -->
   <app-common-header title="{{roomName}}"></app-common-header>
   <ion-content main padding>
     <ion-list class="chat-list">
@@ -13,18 +8,32 @@
         <ng-template #message class="aaa">
           <div class="chat-message" style="text-align: left" *ngIf="chat.userId === uid">
             <div class="right-bubble">
-              <span class="msg-name">Me</span>
-              <span class="msg-date"> {{chat.sendDate | datepipe}}</span>
+              <!-- <span class="msg-name">Me</span> -->
               <p text-wrap>{{chat.message}}</p>
             </div>
+            <div class="right-date" *ngIf="chat.isRead === true;else isRead">
+              既読<br>{{chat.sendDate | datepipe}}
+            </div>
+            <ng-template #isRead>
+              <div class="right-date">
+              未読<br>{{chat.sendDate | datepipe}}
+            </div>
+            </ng-template>
           </div>
           <div class="chat-message" text-left *ngIf="chat.userId !== uid">
             <div class="left-bubble">
-              <span class="msg-date">{{chat.sendDate | datepipe}}</span>
               <p text-wrap>{{chat.message}}</p>
             </div>
+            <div class="left-date" *ngIf="chat.isRead === true;else isRead">
+                既読<br>{{chat.sendDate | datepipe}}
+              </div>
+              <ng-template #isRead>
+                <div class="left-date">
+                未読<br>{{chat.sendDate | datepipe}}
+              </div>
+              </ng-template>
           </div>
-        </ng-template>
+        </ng-template>     
       </ion-item>
     </ion-list>
   </ion-content>

@@ -122,4 +122,30 @@ ion-item {
         margin-top: -13.5px;
         margin-left: -27px;
     }
+
+    .right-date {
+        right: 5;
+        content: "";
+        position: absolute;
+        display: block;
+        width: 100px;
+        text-align: left;
+        bottom: 30px;
+        font-size: 80%;
+        color: black;
+    }
+    .left-date {
+        right: 5;
+        content: "";
+        position: absolute;
+        display: block;
+        width: 100px;
+        text-align: right;
+        right: 30px;
+        bottom: 30px;
+        font-size: 80%;
+        color: black;
+    }
+
+    
 }

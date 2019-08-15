@@ -4,4 +4,5 @@ export interface Chat {
     userId?: string;
     chatId?: string;
     sendDate?: Date;
+    isRead?: boolean;
   }
