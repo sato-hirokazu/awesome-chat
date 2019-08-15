@@ -26,8 +26,8 @@ export class SigninPage implements OnInit {
   async signIn(){
     try{
       const user = await this.authService.signIn(this.data.email, this.data.password);
-      const uid = user.user.uid;   
-      await this.usersService.readUser(uid)
+      const myId = user.user.uid;   
+      await this.usersService.readUser(myId)
       .pipe(take(1))
       .subscribe(async (user)=>{
         if (user && user.name) {
@@ -40,7 +40,7 @@ export class SigninPage implements OnInit {
             buttons:[{
               text: 'OK',
               handler: () => {
-                this.navCtrl.navigateRoot('account/' + uid);
+                this.navCtrl.navigateRoot('account/' + myId);
               }
             }]
           });

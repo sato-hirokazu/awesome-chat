@@ -3,7 +3,6 @@ import { UsersService } from '../service/users.service';
 import { User } from '../shared/user';
 import { NavController, AlertController } from '@ionic/angular';
 import { AuthService } from '../service/auth.service';
-import { connectableObservableDescriptor } from 'rxjs/internal/observable/ConnectableObservable';
 import {  FormControl, FormBuilder,FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Room } from '../shared/room';
@@ -17,11 +16,12 @@ import { RoomsService } from '../service/rooms.service';
 })
 export class AccountPage implements OnInit {
   value:any;
-  data:User;
+  initData:User;
   validations_form: FormGroup;
-  userkey: string;
+  userId: string;
   isRead: boolean;
   isType:string;
+  currentUserId:string;
   
   constructor(
     public usersService:UsersService,
@@ -32,43 +32,38 @@ export class AccountPage implements OnInit {
     public route: ActivatedRoute,
     public roomsService:RoomsService,
   ) {
-    this.userkey = this.route.snapshot.paramMap.get('key') as string;
+    this.userId = this.route.snapshot.paramMap.get('key') as string;
+    this.currentUserId = this.authService.currentUserId();
   }
 
   ngOnInit() {
-    this.usersService.readUser(this.userkey)
+    this.usersService.readUser(this.userId)
     .subscribe((val)=>{
-
-      const user = this.authService.currentUser();
-      if(user.uid === val['uid'] && val['name'] === ""){
+      if(this.currentUserId === val.uid && val.name === ""){
         this.isType = "addName";
         this.isRead = false;
       }
-      if(user.uid === val['uid'] && val['name'] !== ""){
+      if(this.currentUserId === val.uid && val.name !== ""){
         this.isType = "showMe";
         this.isRead = true;
       }
-      if(user.uid !== val['uid']){
+      if(this.currentUserId !== val.uid){
         this.isType = "showOther"
         this.isRead = true;
       }
 
-      console.log(this.isType);
-      this.data = val;
-      this.buldForm(this.data);
+      this.initData = val;
+      this.buldForm(this.initData);
     });
   };
 
   async addAccount(){
-    const user = this.authService.currentUser();
-    const uid = user.uid;
 
     try {      
-      // await 
       if(!this.validations_form.value.name){
         return this.navCtrl.navigateForward('account');
       }
-      this.validations_form.value['uid'] = uid;
+      this.validations_form.value.uid = this.currentUserId;
       this.usersService.updateUser(this.validations_form.value);
       this.isType = "showMe"
       this.isRead = true ;
@@ -96,9 +91,9 @@ export class AccountPage implements OnInit {
           {
             text: 'はい',
             handler: () => {
-            this.buldForm(this.data);
-            this.isType = "showMe"
-            this.isRead = true;
+              this.buldForm(this.initData);
+              this.isType = "showMe"
+              this.isRead = true;
             }
           }, {
             text: 'キャンセル',
@@ -109,9 +104,6 @@ export class AccountPage implements OnInit {
   };
 
   async deleteAccount(){
-    const user = this.authService.currentUser();
-    const uid = user.uid;
-
     const alert = await this.alertController.create({
       header: '警告',
       message: "削除しますがよろしいですか？",
@@ -119,7 +111,7 @@ export class AccountPage implements OnInit {
         {
           text: 'はい',
           handler: () => {
-            this.usersService.deleteUser(uid);
+            this.usersService.deleteUser(this.currentUserId);
             this.navCtrl.navigateRoot('account-list');
           }
         }, {
@@ -128,7 +120,7 @@ export class AccountPage implements OnInit {
       ]
     });
     alert.present();
-};
+  };
 
   buldForm(data){
     this.validations_form = this.formBuilder.group({     
@@ -143,11 +135,10 @@ export class AccountPage implements OnInit {
   }
 
   addRoom(){
-    const user = this.authService.currentUser();
     const room: Room = {
       userId:[      
-        user.uid,//自分
-        this.data.uid,//相手
+        this.currentUserId,//自分
+        this.initData.uid,//相手
        ] 
     };
     this.roomsService.createRoom(room);
@@ -155,17 +146,7 @@ export class AccountPage implements OnInit {
   }
 
   async signOut(){
-    try{
       await this.authService.signOut();
       this.navCtrl.navigateRoot('signin');
-
-    } catch (error) {
-      // const alert = await this.alertController.create({
-      //   header: '警告',
-      //   message: error.message,
-      //   buttons: ['OK']
-      // });
-      // alert.present();
-    }
   }
 }

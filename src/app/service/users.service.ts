@@ -38,7 +38,6 @@ export class UsersService {
   }
 
   deleteUser(uid:string) {
-    console.log(uid);
     this.afs.collection('users').doc(uid).delete();
   }
 

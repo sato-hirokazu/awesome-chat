@@ -20,7 +20,7 @@ export class RoomsService {
     return this.afs.collection('rooms').doc(roomId).valueChanges();
   }
 
-  createRoom(room) {
+  createRoom(room:Room) {
     let uid = this.afs.createId();
     room.roomId = uid;  
     room.updateDate = new Date().getTime();
