@@ -29,11 +29,11 @@
               <p text-wrap>{{chat.message}}</p>
             </div>
             <div class="left-date" *ngIf="chat.isRead === true;else isRead">
-              既読<br>{{chat.sendDate | datepipe}}
+              <br>{{chat.sendDate | datepipe}}
             </div>
             <ng-template #isRead>
               <div class="left-date">
-                未読<br>{{chat.sendDate | datepipe}}
+                <br>{{chat.sendDate | datepipe}}
               </div>
 
             </ng-template>
