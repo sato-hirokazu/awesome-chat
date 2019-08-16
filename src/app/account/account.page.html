@@ -3,36 +3,34 @@
 <ion-content main padding>
   <form [formGroup]="validations_form" *ngIf="validations_form">
     <ion-list>
-      <div class="container">
-        <ion-avatar slot="start">
-          <ion-img [src]="initData.image"></ion-img>
-        </ion-avatar>
-        <div class="container1">
-          <ion-item>
-            <ion-label position="floating">ユーザ名</ion-label>
-            <ion-input [disabled]="isRead" type="text" formControlName='name'></ion-input>
-            <div class="validation-errors" *ngIf="validations_form.get('name').hasError('required') 
-                && (validations_form.get('name').dirty || validations_form.get('name').touched)">
-              <div _ngcontent-c0="" class="validation-errors">
-                <div _ngcontent-c0="" class="error-message">
-                  <ion-icon _ngcontent-c0="" name="information-circle-outline" role="img" class="hydrated"
-                    aria-label="information circle outline">
-                  </ion-icon> ユーザー名がありません
-                </div>
+      <div>
+        <div style="float:left;background-color: white; padding: 10px 30px 0px;">
+          <ion-avatar slot="start">
+            <ion-img [src]="initData.image"></ion-img>
+          </ion-avatar>
+        </div>
+      <div>
+        <ion-item>
+          <ion-label position="floating">ユーザ名</ion-label>
+          <ion-input [disabled]="isRead" type="text" formControlName='name'></ion-input>
+          <div class="validation-errors" *ngIf="validations_form.get('name').hasError('required') 
+              && (validations_form.get('name').dirty || validations_form.get('name').touched)">
+            <div _ngcontent-c0="" class="validation-errors">
+              <div _ngcontent-c0="" class="error-message">
+                <ion-icon _ngcontent-c0="" name="information-circle-outline" role="img" class="hydrated"
+                  aria-label="information circle outline">
+                </ion-icon> ユーザー名がありません
               </div>
             </div>
-          </ion-item>
-          <ion-item>
-            <ion-label>
-              <p>e-mail</p>
-              <p>{{initData.email}}</p>
-            </ion-label>
-          </ion-item>
-        </div>
-        <div>
-        </div>
+          </div>
+        </ion-item>
+        <ion-item>
+            <ion-label position="floating">e-mail</ion-label>
+            <ion-input [disabled]="true" type="text" formControlName='email'></ion-input>
+        </ion-item>
       </div>
-
+    </div>
+    
       <ion-item>
         <ion-label position="floating">性別</ion-label>
         <ion-select [disabled]="isRead" formControlName='sex' name="sex">
