@@ -25,9 +25,10 @@ export class RoomPage implements OnInit {
     }
 
   ngOnInit() {
-    this.usersMap = this.usersService.readAllUsersMap()
+    this.usersMap = this.usersService.readAllUsersMap();
     this.roomsService.readAllRooms()
     .subscribe((rooms)=>{
+      this.rooms = [];
       rooms.forEach((room) => {
         if(room["userId"].includes(this.currentUserId)){
           // 相手ユーザ
