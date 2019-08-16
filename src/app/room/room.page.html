@@ -9,9 +9,12 @@
         <ion-img src="../../assets/imgs/user/cat.png"></ion-img> 
       </ion-avatar>       
       <ion-label>
-        <h3>{{room.roomName}}</h3>
-        <p>{{room.lastMessage}}</p>
-      </ion-label>         
+          <div style="float:left;">
+            <p>{{room.roomName}}</p>
+            <p>{{room.lastMessage}}</p>
+          </div>
+          <div style="float:right;">{{room.updateDate | datepipe}}</div>
+     </ion-label>
       <ion-icon name="chatboxes" slot="end"></ion-icon>
     </ion-item>
   </ion-list>
