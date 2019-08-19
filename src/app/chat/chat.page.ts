@@ -43,7 +43,12 @@ export class ChatPage implements OnInit {
   }
   
   async displayChatMessage() {
-    this.usersMap = this.usersService.readAllUsersMap();
+    await this.usersService.readAllUsersMap()
+    .subscribe((users) =>{
+      users.forEach((user)=> {
+        this.usersMap[user.uid] = user
+      })
+    });
 
     await this.roomeService.readRoom(this.roomkey)
     .subscribe((room) =>{
