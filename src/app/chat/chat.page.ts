@@ -20,6 +20,7 @@ export class ChatPage implements OnInit {
   chatMessage: string;
   usersMap:{[userId:string]: User} = {};
   currentUserId:string;
+  otherId:string;
 
   chats = [];
   offStatus = false;
@@ -55,7 +56,7 @@ export class ChatPage implements OnInit {
       const otherId = room["userId"].filter((userId) => {
         return userId != this.currentUserId;
       });
-      this.roomName = this.usersMap[otherId].name
+      this.otherId = otherId;
     });
 
     this.chatsService.readChat(this.roomkey)
