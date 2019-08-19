@@ -30,14 +30,8 @@ export class UsersService {
   }
 
   readAllUsersMap() {
-     this.afs.collection<User>('users', ref => ref.orderBy('name',"asc"))
-    .valueChanges()
-    .subscribe((users) =>{
-      users.forEach((user)=> {
-        this.usersMap[user.uid] = user
-      })
-    })
-    return this.usersMap;
+    return this.afs.collection<User>('users', ref => ref.orderBy('name',"asc"))
+    .valueChanges();
   }
 
   updateUser(user:User) {

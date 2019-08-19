@@ -24,8 +24,14 @@ export class RoomPage implements OnInit {
       this.currentUserId = this.authService.currentUserId();
     }
 
-  ngOnInit() {
-    this.usersMap = this.usersService.readAllUsersMap();
+  async ngOnInit() {
+    await this.usersService.readAllUsersMap()
+    .subscribe((users) =>{
+      users.forEach((user)=> {
+        this.usersMap[user.uid] = user
+      })
+    });
+    
     this.roomsService.readAllRooms()
     .subscribe((rooms)=>{
       this.rooms = [];
@@ -35,7 +41,7 @@ export class RoomPage implements OnInit {
           const otherId = room["userId"].filter((userId) => {
             return userId !== this.currentUserId;
           });
-          room["roomName"] = this.usersMap[otherId].name
+          room["otherId"] = otherId;
           this.rooms.push(room);
         }
       });
