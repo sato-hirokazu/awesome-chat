@@ -4,10 +4,13 @@
   "author": "Ionic Framework",
   "homepage": "https://ionicframework.com/",
   "scripts": {
+    "test": "npm run deleteCoverage && npm run karma",
+    "karma": "karma start --single-run",
+    "deleteCoverage": "rm -rf coverage/",
+    "clean": "rm -rf node_modules/ && npm cache clean",
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
-    "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
   },
@@ -56,7 +59,12 @@
     "protractor": "~5.4.0",
     "ts-node": "~7.0.0",
     "tslint": "~5.15.0",
-    "typescript": "~3.4.3"
+    "typescript": "~3.4.3",
+    "jasmine": "^2.5.2",
+    "karma-coverage": "^1.1.1",
+    "karma-phantomjs-launcher": "^1.0.2",
+    "karma-spec-reporter": "0.0.26",
+    "phantomjs-prebuilt": "^2.1.14"
   },
   "description": "An Ionic project"
 }
