@@ -23,6 +23,10 @@ export class AccountPage implements OnInit {
   isType:string;
   currentUserId:string;
   
+  // 画像読み込み用
+  reader = new FileReader();
+  image: FormControl;
+  
   constructor(
     public usersService:UsersService,
     public navCtrl:NavController,
@@ -63,6 +67,9 @@ export class AccountPage implements OnInit {
       if(!this.validations_form.value.name){
         return this.navCtrl.navigateForward('account');
       }
+
+      // 暫定対応
+      this.validations_form.value.image = this.validations_form.value.image.value
       this.validations_form.value.uid = this.currentUserId;
       this.usersService.updateUser(this.validations_form.value);
       this.isType = "showMe"
@@ -123,10 +130,15 @@ export class AccountPage implements OnInit {
   };
 
   buldForm(data){
+
+    this.image = new FormControl(data.image, [
+      Validators.required
+    ])
+
     this.validations_form = this.formBuilder.group({     
       birthday: new FormControl(data.birthday, Validators.required),
       email: new FormControl(data.email, Validators.required),
-      image: new FormControl(data.image),
+      image: new FormControl(this.image),
       message: new FormControl(data.message, Validators.maxLength(15)),
       name: new FormControl(data.name, Validators.required),
       sex: new FormControl(data.sex, Validators.required),
@@ -144,4 +156,18 @@ export class AccountPage implements OnInit {
     this.roomsService.createRoom(room);
     this.navCtrl.navigateRoot('chat/' + room.roomId);
   }
+
+   /**
+   * 選択された画像を取得する
+   * @param event : 選択された画像の情報
+   */
+  onChangeInput(event){
+    const file = event.target.files[0];
+    this.reader.onload = ((e) => {
+        this.image.setValue(e.target['result']);
+        this.initData.image = e.target['result']
+    });
+    this.reader.readAsDataURL(file);
+  }
+
 }

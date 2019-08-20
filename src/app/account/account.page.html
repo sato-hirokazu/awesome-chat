@@ -4,11 +4,27 @@
   <form [formGroup]="validations_form" *ngIf="validations_form">
     <ion-list>
       <div>
-        <div style="float:left;background-color: white; padding: 10px 30px 0px;">
+        <!-- <div style="float:left;background-color: white; padding: 10px 30px 0px;">
           <ion-avatar slot="start">
             <ion-img [src]="initData.image"></ion-img>
           </ion-avatar>
-        </div>
+        </div> -->
+
+        <div>
+            <p class='inner-sentence'>身分証明書（表）</p>
+            <div>
+              <label *ngIf='!initData.image' >
+                画像をアップロード<input type='file' accept='image/*' (change)='onChangeInput($event)'/>
+              </label>
+              <img [src]='initData.image'/>
+            </div>
+            <ion-button>
+              <label>
+                アップロード<input type='file' accept='image/*' (change)='onChangeInput($event)'/>
+              </label>
+            </ion-button>
+          </div>
+
       <div>
         <ion-item>
           <ion-label position="floating">ユーザ名</ion-label>
