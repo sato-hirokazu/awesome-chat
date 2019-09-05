@@ -3,7 +3,7 @@ import { NavController, AlertController } from '@ionic/angular';
 import { AuthService } from '../service/auth.service';
 import { UsersService } from '../service/users.service';
 import { take } from 'rxjs/operators';
-import { HttpClient, HttpHeaders} from '@angular/common/http'
+import { HttpClient, HttpHeaders } from '@angular/common/http'
 
 @Component({
   selector: 'app-signin',
@@ -11,7 +11,7 @@ import { HttpClient, HttpHeaders} from '@angular/common/http'
   styleUrls: ['./signin.page.scss'],
 })
 export class SigninPage implements OnInit {
-
+  
   data:{email:string, password:string } = { email: '', password: '' };
   constructor(
     public navCtrl:NavController,
@@ -29,13 +29,28 @@ export class SigninPage implements OnInit {
     + '&nonce=n-0S6_WzA2Mj';
     + '&prompt=consent';
     console.log(api);
-    const res: any = this.http.get(api, {
-      headers:{
-        'Access-Control-Allow-Origin': '*',
-        // 'Access-Control-Allow-Headers' : 'content-type',
-        // 'Access-Control-Allow-Methods' : 'GET, POST, PUT, DELETE, PATCH, OPTIONS',    
-      }	
-    }).subscribe(data => {
+
+    const httpOptions = {
+      headers: new HttpHeaders()
+    };
+    httpOptions.headers.set('X-Requested-With' , 'XMLHttpRequest')
+    httpOptions.headers.set('Access-Control-Allow-Origin' , '*')
+    httpOptions.headers.set('Accept' , 'application/json')
+    httpOptions.headers.set('Content-Type' , 'application/json')
+
+    console.log(httpOptions)
+
+    const res: any = this.http.get(api, httpOptions
+    //   {
+    //   headers:{
+    //     'Access-Control-Allow-Origin': '*',
+    //     // 'Access-Control-Allow-Headers' : 'application/json',
+    //     // 'Access-Control-Allow-Methods' : 'GET, POST, PUT, DELETE, PATCH',
+    //     // 'Access-Control-Allow-Credentials' : false,
+    //   }	
+    // }
+    ).subscribe(data => {
+      console.log(data)
     });
   }
 
