@@ -18,8 +18,8 @@ export class ChatPage implements OnInit {
   roomkey: string;
   roomName: string;
   chatMessage: string;
-  usersMap:{[userId:string]: User} = {};
-  currentUserId:string;
+  usersMap: {[userId: string]: User} = {};
+  currentUserId: string;
 
   chats = [];
   offStatus = false;
@@ -27,12 +27,12 @@ export class ChatPage implements OnInit {
   chatLineScroll: any;
 
   constructor(
-    public navCtrl: NavController, 
+    public navCtrl: NavController,
     public route: ActivatedRoute,
-    public chatsService:ChatService,
-    public authService:AuthService,
-    public usersService:UsersService,
-    public roomeService:RoomsService,
+    public chatsService: ChatService,
+    public authService: AuthService,
+    public usersService: UsersService,
+    public roomeService: RoomsService,
   ) {
     this.roomkey = this.route.snapshot.paramMap.get('key') as string;
     this.currentUserId = this.authService.currentUserId();
@@ -41,44 +41,44 @@ export class ChatPage implements OnInit {
 
   ngOnInit() {
   }
-  
+
   async displayChatMessage() {
     await this.usersService.readAllUsersMap()
-    .subscribe((users) =>{
-      users.forEach((user)=> {
-        this.usersMap[user.uid] = user
-      })
+    .subscribe((users) => {
+      users.forEach((user) => {
+        this.usersMap[user.uid] = user;
+      });
     });
 
     await this.roomeService.readRoom(this.roomkey)
-    .subscribe((room) =>{
-      const otherId = room["userId"].filter((userId) => {
+    .subscribe((room) => {
+      const otherId = room.userId.filter((userId) => {
         return userId != this.currentUserId;
       });
-      this.roomName = this.usersMap[otherId].name
+      this.roomName = this.usersMap[otherId].name;
     });
 
     this.chatsService.readChat(this.roomkey)
-    .subscribe((message)=>{   
+    .subscribe((message) => {
       this.chats = [];
       message.forEach((msg) => {
-        if(msg.userId !== this.currentUserId){
-          msg.isRead= true,
-          this.chatsService.updateChat(this.roomkey, msg)
+        if (msg.userId !== this.currentUserId) {
+          msg.isRead = true,
+          this.chatsService.updateChat(this.roomkey, msg);
         }
         this.chats.push(msg);
       });
-    },);
+    }, );
   }
 
   sendChatMessage() {
     this.sendMessage('message', this.chatMessage);
-    this.chatMessage = "";
+    this.chatMessage = '';
   }
 
   sendMessage(type: string, message: string) {
     const chat: Chat = {
-      message: message,
+      message,
       userId: this.currentUserId,
       isRead: false,
     };

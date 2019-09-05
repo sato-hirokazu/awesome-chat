@@ -5,13 +5,13 @@
 export const environment = {
   production: false,
   config: {
-      apiKey: "AIzaSyC6A2XPmQsBDpuVmDYzs2wkoH14H4lmTsg",
-      authDomain: "test-chat-a3b8c.firebaseapp.com",
-      databaseURL: "https://test-chat-a3b8c.firebaseio.com",
-      projectId: "test-chat-a3b8c",
-      storageBucket: "",
-      messagingSenderId: "770061773694",
-      appId: "1:770061773694:web:01a8755d0d803e24"
+      apiKey: 'AIzaSyC6A2XPmQsBDpuVmDYzs2wkoH14H4lmTsg',
+      authDomain: 'test-chat-a3b8c.firebaseapp.com',
+      databaseURL: 'https://test-chat-a3b8c.firebaseio.com',
+      projectId: 'test-chat-a3b8c',
+      storageBucket: '',
+      messagingSenderId: '770061773694',
+      appId: '1:770061773694:web:01a8755d0d803e24'
   }
 };
 

@@ -12,16 +12,16 @@ export class ChatService {
     private afs: AngularFirestore,
   ) { }
 
-  readChat(roomkey:string) {
+  readChat(roomkey: string) {
     const messageRef = this.afs.collection('rooms').doc<Chat>(roomkey)
-              .collection('chats', ref => ref.orderBy('sendDate',"asc"))
+              .collection('chats', ref => ref.orderBy('sendDate', 'asc'))
               .valueChanges();
     return messageRef;
   }
 
-  createChat(roomkey:string, chat) {
-    let uid = this.afs.createId();
-    chat.chatId = uid
+  createChat(roomkey: string, chat) {
+    const uid = this.afs.createId();
+    chat.chatId = uid;
     chat.sendDate = new Date().getTime();
     this.afs.collection('rooms').doc(roomkey).collection('chats').doc(uid).set(chat);
     const room: Room = {
@@ -31,7 +31,7 @@ export class ChatService {
     this.afs.collection('rooms').doc(roomkey).update(room);
   }
 
-  updateChat(roomkey:string, chat:Chat) {
+  updateChat(roomkey: string, chat: Chat) {
     this.afs.collection('rooms').doc(roomkey).collection('chats').doc(chat.chatId).update(chat);
   }
 }

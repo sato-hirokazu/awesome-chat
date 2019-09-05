@@ -11,32 +11,32 @@ import { AuthService } from '../service/auth.service';
 export class AccountListPage implements OnInit {
   users = [];
   me = [];
-  currentUserId:string;
-  
+  currentUserId: string;
+
   constructor(
-    public usersService:UsersService,
-    public navCtrl:NavController,
-    public authService:AuthService,
-  ) { 
+    public usersService: UsersService,
+    public navCtrl: NavController,
+    public authService: AuthService,
+  ) {
     this.currentUserId = this.authService.currentUserId();
   }
 
   ngOnInit() {
     this.usersService.readAllUsers()
-    .subscribe((val)=>{
+    .subscribe((val) => {
       this.me = [];
       this.users = [];
       val.forEach((user) => {
-        if(this.currentUserId === user["uid"]){
+        if (this.currentUserId === user.uid) {
           this.me.push(user);
-        }else{
+        } else {
           this.users.push(user);
         }
       });
-    },);
+    }, );
   }
 
-  showUser(key){
+  showUser(key) {
     this.navCtrl.navigateRoot('account/' + key);
   }
 }

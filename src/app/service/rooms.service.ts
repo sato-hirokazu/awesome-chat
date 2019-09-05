@@ -10,19 +10,19 @@ export class RoomsService {
   constructor(
     private afs: AngularFirestore,
   ) {}
-  
+
   readAllRooms() {
-    return this.afs.collection('rooms', ref => ref.orderBy('updateDate',"desc"))
-    .valueChanges({idField: 'key'})
+    return this.afs.collection('rooms', ref => ref.orderBy('updateDate', 'desc'))
+    .valueChanges({idField: 'key'});
   }
 
-  readRoom(roomId:string) {
+  readRoom(roomId: string) {
     return this.afs.collection('rooms').doc(roomId).valueChanges();
   }
 
-  createRoom(room:Room) {
-    let uid = this.afs.createId();
-    room.roomId = uid;  
+  createRoom(room: Room) {
+    const uid = this.afs.createId();
+    room.roomId = uid;
     room.updateDate = new Date().getTime();
     this.afs.collection('rooms').doc(uid).set(room);
   }

@@ -8,14 +8,14 @@ import { NavController } from '@ionic/angular';
 export class AuthService {
 
   constructor(
-    private afAuth: AngularFireAuth, 
+    private afAuth: AngularFireAuth,
     private navCtrl: NavController) {
   }
-  signIn(email: string, password: string){
-    return this.afAuth.auth.signInWithEmailAndPassword(email,password);
+  signIn(email: string, password: string) {
+    return this.afAuth.auth.signInWithEmailAndPassword(email, password);
   }
-  
-  signOut(){
+
+  signOut() {
     return this.afAuth.auth.signOut();
   }
 

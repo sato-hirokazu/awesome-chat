@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { AuthService } from 'src/app/service/auth.service';
 import { NavController, MenuController } from '@ionic/angular';
-import { Location } from "@angular/common";
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-common-header',
@@ -11,8 +11,8 @@ import { Location } from "@angular/common";
 export class CommonHeaderComponent implements OnInit {
   @Input() title: string;
   constructor(
-    public navControl:NavController,
-    public authService:AuthService,
+    public navControl: NavController,
+    public authService: AuthService,
     private location: Location,
     public menuCtrl: MenuController
   ) {this.menuCtrl.close(); }
@@ -21,23 +21,23 @@ export class CommonHeaderComponent implements OnInit {
     this.menuCtrl.close();
   }
 
-  async signOut(){
-    try{
+  async signOut() {
+    try {
       await this.authService.signOut();
       this.navControl.navigateRoot('signin');
     } catch (error) {
     }
   }
-  async accountList(){
+  async accountList() {
     await this.menuCtrl.close();
     this.navControl.navigateRoot('account-list');
   }
-  async roomList(){
+  async roomList() {
     await this.menuCtrl.close();
-    this.navControl.navigateRoot('room');   
+    this.navControl.navigateRoot('room');
   }
 
-  navigateForward(){
+  navigateForward() {
     this.location.back();
   }
 }

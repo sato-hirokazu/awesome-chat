@@ -11,41 +11,41 @@ import { User } from '../shared/user';
   styleUrls: ['./room.page.scss'],
 })
 export class RoomPage implements OnInit {
-  usersMap:{[userId:string]: User} = {};
-  currentUserId:string;
+  usersMap: {[userId: string]: User} = {};
+  currentUserId: string;
 
   rooms = [];
   constructor(
-    public navControl:NavController,
-    public authService:AuthService,
-    public roomsService:RoomsService,
-    public usersService:UsersService,
+    public navControl: NavController,
+    public authService: AuthService,
+    public roomsService: RoomsService,
+    public usersService: UsersService,
     ) {
       this.currentUserId = this.authService.currentUserId();
     }
 
   async ngOnInit() {
     await this.usersService.readAllUsersMap()
-    .subscribe((users) =>{
-      users.forEach((user)=> {
-        this.usersMap[user.uid] = user
-      })
+    .subscribe((users) => {
+      users.forEach((user) => {
+        this.usersMap[user.uid] = user;
+      });
     });
-    
+
     this.roomsService.readAllRooms()
-    .subscribe((rooms)=>{
+    .subscribe((rooms) => {
       this.rooms = [];
       rooms.forEach((room) => {
-        if(room["userId"].includes(this.currentUserId)){
+        if (room.userId.includes(this.currentUserId)) {
           // 相手ユーザ
-          const otherId = room["userId"].filter((userId) => {
+          const otherId = room.userId.filter((userId) => {
             return userId !== this.currentUserId;
           });
-          room["otherId"] = otherId;
+          room.otherId = otherId;
           this.rooms.push(room);
         }
       });
-    },);
+    }, );
   }
 
   joinRoom(key) {

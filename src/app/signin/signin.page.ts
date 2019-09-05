@@ -3,7 +3,7 @@ import { NavController, AlertController } from '@ionic/angular';
 import { AuthService } from '../service/auth.service';
 import { UsersService } from '../service/users.service';
 import { take } from 'rxjs/operators';
-
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 
 @Component({
   selector: 'app-signin',
@@ -12,32 +12,33 @@ import { take } from 'rxjs/operators';
 })
 export class SigninPage implements OnInit {
 
-  data:{email:string, password:string } = { email: '', password: '' };
+  data: {email: string, password: string } = { email: '', password: '' };
   constructor(
-    public navCtrl:NavController,
-    public alertController:AlertController,
-    public authService:AuthService,
-    public usersService:UsersService,
+    public navCtrl: NavController,
+    public alertController: AlertController,
+    public authService: AuthService,
+    public usersService: UsersService,
+    private http: HttpClient,
   ) { }
 
   ngOnInit() {
   }
 
-  async signIn(){
-    try{
+  async signIn() {
+    try {
       const user = await this.authService.signIn(this.data.email, this.data.password);
-      const myId = user.user.uid;   
+      const myId = user.user.uid;
       await this.usersService.readUser(myId)
       .pipe(take(1))
-      .subscribe(async (user)=>{
+      .subscribe(async (user) => {
         if (user && user.name) {
           this.navCtrl.navigateRoot('room');
         } else {
           this.usersService.setUserProfile(user);
           const alert = await this.alertController.create({
             header: '警告',
-            message: "初回ログインのため、アカウント画面に遷移します",
-            buttons:[{
+            message: '初回ログインのため、アカウント画面に遷移します',
+            buttons: [{
               text: 'OK',
               handler: () => {
                 this.navCtrl.navigateRoot('account/' + myId);
@@ -46,7 +47,7 @@ export class SigninPage implements OnInit {
           });
           alert.present();
         }
-      },);
+      }, );
     } catch (error) {
       const alert = await this.alertController.create({
         header: '警告',
